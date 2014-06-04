@@ -3,7 +3,7 @@ highlighter: null
 permalink: /:title
 
 url: ycswaves.github.io/blog
-baseurl: ycswaves.github.io/blog
+baseurl: /blog
 
 redcarpet:
   extensions: [strikethrough, tables]
