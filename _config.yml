@@ -9,5 +9,5 @@ redcarpet:
   extensions: [strikethrough, tables]
 
 sass:
-  sass_dir: public/css
+  sass_dir: /blog/public/css
   style: :compressed
