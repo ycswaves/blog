@@ -1,0 +1,13 @@
+markdown: redcarpet
+highlighter: null
+permalink: /:title
+
+url: ycswaves.github.io/blog
+baseurl:
+
+redcarpet:
+  extensions: [strikethrough, tables]
+
+sass:
+  sass_dir: public/css
+  style: :compressed
