@@ -1,5 +1,5 @@
 markdown: redcarpet
-highlighter: null
+highlighter: pygments
 permalink: /:title
 
 url: ycswaves.github.io/blog
@@ -9,5 +9,5 @@ redcarpet:
   extensions: [strikethrough, tables]
 
 sass:
-  sass_dir: /blog/public/css
-  style: :compressed
+  sass_dir: /public/css
+  style: :nested
