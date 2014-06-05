@@ -3,4 +3,6 @@ layout: page
 title: About
 ---
 
-Nothing yet :(
+- Yet another web developer
+- Chengdu | Singapore
+- Fighting for a better life
