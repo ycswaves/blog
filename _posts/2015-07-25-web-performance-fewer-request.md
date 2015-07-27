@@ -38,3 +38,10 @@ To "select" which image to show from the big image file, use the CSS `background
 {% endhighlight %}
 The 2 values, "-260px" and "-90px", defines the top-left position of the sprite-image. In this case, to display the target small image, it requires the sprite-image to move left by 260px and up by 90px. And that's why you never see positive values for `background-position`.
 
+### 3. Combined Scripts and Stylesheets
+Generally, using external scripts and stylesheets is better for performance. From software engineering's point of view, it's good to modularize the code by breaking it into many small files, which means more HTTP requests.
+
+Combining files is easy, and minifying the files can also be done along with the combining process. However it will be difficult if different pages require different combinations of modules. (Maybe take a look at RequireJS)
+
+
+
