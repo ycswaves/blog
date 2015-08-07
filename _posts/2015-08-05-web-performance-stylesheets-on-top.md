@@ -12,12 +12,12 @@ The problem with putting stylesheets near the bottom of the page is that it proh
 To avoid the blank white screen at the very first beginning of page loading, especially in IE, move the stylesheet to the top in the HTML's `<head>` section so that the page can render progressively.
 
 #### Two ways of including a stylesheet in HTML
-**Link tag:**
+Link tag:
 {% highlight html %}
 <link rel="stylesheet" href="styles1.css">
 {% endhighlight %}
 
-**@import:**
+@import:
 {% highlight html %}
 <style>
   @import url("styles2.css");
