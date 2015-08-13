@@ -24,5 +24,37 @@ Home page might be the only exception where inlining is preferable. Take a look 
 Even if all the factors point to inlining, it still feels inefficient to add all that JS and CSS to the page and not take advantage of the browser’s cache. Two techniques are described here that allow you to gain the benefits of inlining, as well as caching external files.
 
 #### Post-Onload Download
+Home page itself might be a good place to apply inlining, but also used to leverage external files for all secondary page views. This is accomplished by dynamically downloading the JS/CSS files in the home page (even if they might not be used in home page) after it has completely loaded. This places the external files in the browser's cache **in anticipation of** the user continuing on to other pages.
+
+{% highlight html %}
+<script type="text/javascript">
+function postOnload() {
+  setTimeout(downloadCompo, 1000);
+  //one second delay to make sure the page is completely rendered
+}
+
+window.onload = postOnload;
+function downloadCompo() {
+  downloadJS("http://example.com/example.js");
+  downloadCSS("http://example.com/example.css");
+}
+
+function downloadJS(url) {
+  var script = document.createElement("script");
+  script.src = url;
+  document.body.appendChild(script);
+}
+
+function downloadCSS(url) {
+  var css = document.createElement("link");
+  css.rel = "stylesheet";
+  css.type = "text/css";
+  css.href = url;
+  document.bodu.appendChild(css);
+}
+</script>
+{% endhighlight %}
+
+In case of double defination (same piece of code appears in both inlining and external files), inserting these components into an invisible `iframe` could tackle this problem.
 
 #### Dynamic Inlining

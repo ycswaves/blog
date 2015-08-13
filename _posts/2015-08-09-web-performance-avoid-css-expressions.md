@@ -14,7 +14,7 @@ The above example shows how background color could be set to alternate every hou
 {% highlight html %}
 width: expression( document.body.clientWidth < 600 ? "600px" : "auto" );
 min-width: 600px;
-{% endhighlight %}}
+{% endhighlight %}
 
 Browsers support `min-width` will ignore the first rule while IE6 ignore the `min-width` property and sets the `width` property dynamically based on the width of the document.
 
