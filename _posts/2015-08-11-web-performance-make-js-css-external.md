@@ -58,3 +58,6 @@ function downloadCSS(url) {
 In case of double defination (same piece of code appears in both inlining and external files), inserting these components into an invisible `iframe` could tackle this problem.
 
 #### Dynamic Inlining
+This technique make use of the previous technique plus returning a session-based cookie with the components, to let the home page server to decide whether to use inline or extenal JS/CSS.
+
+The first time a user visit the page, the cookie is not present and the server will generate a page that inlines the components and use the "Post-Onload Download" technique to prepare the external files for the next visit. So the next time the page is visited, the server sees the cookied and generate a page that uses external files which most likely have been cached.
