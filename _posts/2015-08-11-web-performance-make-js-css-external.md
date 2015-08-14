@@ -11,13 +11,15 @@ The key factor is the frequency with which external JS and CSS files are cached 
 
 - **Empty/Primed Cache:** if the nature of your site results in higher primed cache rates for your users, the benefit of using external files is greater. Users may show up with an empty cache, but make serveral subsequent page views with a primed cache.
 
-- **Component Reuse:** if the JS and CSS files can be shared among multiple pages, using external files becomes more advantageous. However, the caveat here is that you may end up with either "few very big files" or "many small files". Only if you can find a balance that results in a high reuse rate, make JS/CSS external is the way to go, otherwise inlinging might make more sense.
+- **Component Reuse:** if the JS and CSS files can be shared among multiple pages, using external files becomes more advantageous. However, the caveat here is that you may end up with either "few very big files" or "many small files". Only if you can find a balance that results in a high reuse rate, make JS/CSS external is the way to go, otherwise inlining might make more sense.
 
 ### Home Pages
 Home page might be the only exception where inlining is preferable. Take a look at the three metrics mentioned above from the perspective of home pages:
 
-*Page Views:* Home pages have a high number of page views per month but often only one page view per session.  
-*Empty/Primed Cache:* The primed cache percentage might be lower than other sites. For security rea- sons, many users elect to clear the cache every time they close the browser.  
+*Page Views:* Home pages have a high number of page views per month but often only one page view per session.
+
+*Empty/Primed Cache:* The primed cache percentage might be lower than other sites. For security reasons, many users elect to clear the cache every time they close the browser.
+
 *Component Reuse:* The reuse rate is low. Many home pages are the only page a user visits on the site, so there is really no reuse.
 
 ### The Best of Both Worlds
@@ -55,9 +57,9 @@ function downloadCSS(url) {
 </script>
 {% endhighlight %}
 
-In case of double defination (same piece of code appears in both inlining and external files), inserting these components into an invisible `iframe` could tackle this problem.
+In case of double definition (same piece of code appears in both inlining and external files), inserting these components into an invisible `iframe` could tackle this problem.
 
 #### Dynamic Inlining
 This technique make use of the previous technique plus returning a session-based cookie with the components, to let the home page server to decide whether to use inline or extenal JS/CSS.
 
-The first time a user visit the page, the cookie is not present and the server will generate a page that inlines the components and use the "Post-Onload Download" technique to prepare the external files for the next visit. So the next time the page is visited, the server sees the cookied and generate a page that uses external files which most likely have been cached.
+The first time a user visit the page, the cookie is not present and the server will generate a page that inlines the components and then use the "Post-Onload Download" technique to prepare the external files for the next visit. So the next time the page is visited, the server sees the cookie and generate a page that uses external files which most likely have been cached.
