@@ -13,3 +13,6 @@ DNS typically takes 20~120 ms for the browser to look up the IP address for a gi
 - User's proximity to it
 - User's bandwidth speed
 
+### DNS Caching and TTLs
+DNS lookups are cached for bettern performance. There are multiple occasions of DNS being cached. One can occur on a special caching server maintained by the user's ISP or LAN. Another two are at user's side, one is in OS and the other in browser. If browser keeps a DNS record in its cache, then no need to bother OS. Otherwise, OS will either retrieve from its own cache or sends a request to a remote server (where potential slowdowns occur). In addtion, IP addresses could change and DNS caches consume memory. Therefore, the DNS records have to be periodically flushed from the cache, and several different configuration settings determine how often they are discarded.
+
