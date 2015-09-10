@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Minify JavaScript
+category: notes
 ---
 
 **Minification** is the practice of removing unnecessary characters (that includes all comments and unneeded whitespace characters) from code to reduce its size, thereby improving load times.

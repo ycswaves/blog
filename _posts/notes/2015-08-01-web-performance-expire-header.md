@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Add an Expires Header
+category: notes
 ---
 
 ### Expires Header

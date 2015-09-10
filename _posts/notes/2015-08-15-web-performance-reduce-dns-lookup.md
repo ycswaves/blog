@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Reduce DNS Lookups
+category: notes
 ---
 
 The role of the Domain Name System(DNS) is to map hostnames to IP addresses. When a user type a URL into the browser, a DNS resolver will return the IP address of the server hosting the site that the user requested.

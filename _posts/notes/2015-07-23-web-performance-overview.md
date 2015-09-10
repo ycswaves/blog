@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Web Performance Overview
+category: notes
 ---
 
 #### The Performance Golden Rule

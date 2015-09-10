@@ -1,5 +1,9 @@
 - url: /blog/
   title: Home
 
+- url: /blog/study-notes
+  title: Notes
+
 - url: /blog/about
   title: About
+

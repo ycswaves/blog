@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Make JavaScript and CSS External
+category: notes
 ---
 
 In raw terms, placing JS and CSS files inline is faster because placing externally causes overhead of multiple HTTP requests. However, using external files in the real world generally produces faster page because of the benefit of being cached by the browser and the HTML document size will also be reduced by moving inline JS and CSS out of itself.

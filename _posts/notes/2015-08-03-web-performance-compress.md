@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Gzip Components
+category: notes
 ---
 
 ### How Compression Works

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Make Fewer HTTP Request
+category: notes
 ---
 
 There are several techniques that help reduce HTTP requests, including:

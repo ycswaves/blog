@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Put Scripts at the Bottom
+category: notes
 ---
 
 With scripts, progressive rendering is blocked for all content *below* the script. Moving scripts lower in the page means more content is rendered progressively.

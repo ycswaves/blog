@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Use Content Delivery Network (CDN)
+category: notes
 ---
 
 For website facing large audience, it's necessary to deploy content across **multiple** and **geographically dispersed** servers.

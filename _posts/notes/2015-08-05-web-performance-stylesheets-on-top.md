@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Put Stylesheets at the Top
+category: notes
 ---
 
 If certain portion of the web page, say a pop-up DIV, is only accessible when the parent page has been loaded, will putting the link to the stylesheet of that DIV at the bottom of the page help page load faster? **It may not help**
