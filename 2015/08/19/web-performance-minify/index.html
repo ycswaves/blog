@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Minify JavaScript - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Minify JavaScript">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-19 16:00" pubdate>
+        August 19, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      340 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,133 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Minify JavaScript</h1>
+            
+            <div class="markdown-body">
+              <p><strong>Minification</strong> is the practice of removing unnecessary characters (that includes all comments and unneeded whitespace characters) from code to reduce its size, thereby improving load times.</p>
+<p><strong>Obfuscation</strong> is an alternative optimization that can be applied to source code. Besides doing what minification does, it also converts function and variable names into smaller strings making the code more compact and harder to read. However, obfuscation has three main drawbacks:</p>
+<ul>
+<li><p><strong>Bugs</strong>: There’s a high chance of introducing errors into the code as a result of the obfuscation process itself.</p>
+</li>
+<li><p><strong>Maintenance</strong>: Since obfuscation changes JS symbols, any symbols that should not be changed (e.g API functions) must be tagged so that the obfuscator leaves them unaltered.</p>
+</li>
+<li><p><strong>Debugging</strong>: Obfuscated codes are more difficult to read, therefore, harder to debug in production environment.</p>
+</li>
+</ul>
+<p>Some popular tools for minifying JavaScript:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://crockford.com/javascript/jsmin">JSMin</a></li>
+<li><a target="_blank" rel="noopener" href="http://shrinksafe.dojotoolkit.org/">Dojo (ShrinkSafe)</a></li>
+</ul>
+<h3 id="The-Savings"><a href="#The-Savings" class="headerlink" title="The Savings"></a>The Savings</h3><p>On average, JSMin reduced the size of JavaScript files by 21%, while Dojo Compressor achieved a 25% reduction. And generally one should choose minification over obfuscation, thus avoiding the possible problems that obfuscation can cause. The effectiveness on reduction of file size will be even closer for minification and obfuscation, when they are used together with gzip compression.</p>
+<h3 id="Inline-Scripts"><a href="#Inline-Scripts" class="headerlink" title="Inline Scripts"></a>Inline Scripts</h3><p>Inline JavaScript blocks should also be minified, though it is less evident nowadays. In practice, minifying inlines is easier than that of externals because there is probably a version of JSMin in whatever page generation platform one uses. Once the functionality is available, all inlines can be minified before being echoed to the HTML document.</p>
+<h3 id="Gzip-and-Minification"><a href="#Gzip-and-Minification" class="headerlink" title="Gzip and Minification"></a>Gzip and Minification</h3><p>Gzip compression decreases file sizes more than minification. It could be questionable that minification is worthwhile when gzip compression has already been enabled.</p>
+<table>
+<thead>
+<tr>
+<th align="center">File size</th>
+<th align="center">JSMin</th>
+<th align="center">Gzip</th>
+<th align="center">Savings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">85KB</td>
+<td align="center">No</td>
+<td align="center">No</td>
+<td align="center">-</td>
+</tr>
+<tr>
+<td align="center">68KB</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center">21%</td>
+</tr>
+<tr>
+<td align="center">23KB</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+<td align="center">73%</td>
+</tr>
+<tr>
+<td align="center">19KB</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="center">78%</td>
+</tr>
+</tbody></table>
+<h3 id="Minifying-CSS"><a href="#Minifying-CSS" class="headerlink" title="Minifying CSS"></a>Minifying CSS</h3><p>The savings from minifying CSS are typically less than the savings from minifying JS because CSS generally has fewer comments and less whitespace. The greatest potential for size savings comes from optimizing CSS - merging identical classes, removing unused classes, etc.</p>
 
-  //setTimeout(redirect, 3000)
-</script>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/09/08/web-performance-avoid-redirects/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Avoid Redirects</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/08/14/web-performance-reduce-dns-lookup/">
+                        <span class="hidden-mobile">Reduce DNS Lookups</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +426,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

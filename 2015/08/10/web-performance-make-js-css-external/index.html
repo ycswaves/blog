@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Make JavaScript and CSS External - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/blog/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Make JavaScript and CSS External">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-10 16:00" pubdate>
+        August 10, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      683 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Make JavaScript and CSS External</h1>
+            
+            <div class="markdown-body">
+              <p>In raw terms, placing JS and CSS files inline is faster because placing externally causes overhead of multiple HTTP requests. However, using external files in the real world generally produces faster page because of the benefit of being cached by the browser and the HTML document size will also be reduced by moving inline JS and CSS out of itself.</p>
+<p>The key factor is the frequency with which external JS and CSS files are cached relative to the number of HTML documents requested. This can be gauged using following metrics:</p>
+<ul>
+<li><p><strong>Page Views:</strong> fewer page views per user, the stronger the argument for inlining JS/CSS and vice versa.</p>
+</li>
+<li><p><strong>Empty/Primed Cache:</strong> if the nature of your site results in higher primed cache rates for your users, the benefit of using external files is greater. Users may show up with an empty cache, but make serveral subsequent page views with a primed cache.</p>
+</li>
+<li><p><strong>Component Reuse:</strong> if the JS and CSS files can be shared among multiple pages, using external files becomes more advantageous. However, the caveat here is that you may end up with either “few very big files” or “many small files”. Only if you can find a balance that results in a high reuse rate, make JS/CSS external is the way to go, otherwise inlining might make more sense.</p>
+</li>
+</ul>
+<h3 id="Home-Pages"><a href="#Home-Pages" class="headerlink" title="Home Pages"></a>Home Pages</h3><p>Home page might be the only exception where inlining is preferable. Take a look at the three metrics mentioned above from the perspective of home pages:</p>
+<p><em>Page Views:</em> Home pages have a high number of page views per month but often only one page view per session.</p>
+<p><em>Empty/Primed Cache:</em> The primed cache percentage might be lower than other sites. For security reasons, many users elect to clear the cache every time they close the browser.</p>
+<p><em>Component Reuse:</em> The reuse rate is low. Many home pages are the only page a user visits on the site, so there is really no reuse.</p>
+<h3 id="The-Best-of-Both-Worlds"><a href="#The-Best-of-Both-Worlds" class="headerlink" title="The Best of Both Worlds"></a>The Best of Both Worlds</h3><p>Even if all the factors point to inlining, it still feels inefficient to add all that JS and CSS to the page and not take advantage of the browser’s cache. Two techniques are described here that allow you to gain the benefits of inlining, as well as caching external files.</p>
+<h4 id="Post-Onload-Download"><a href="#Post-Onload-Download" class="headerlink" title="Post-Onload Download"></a>Post-Onload Download</h4><p>Home page itself might be a good place to apply inlining, but also used to leverage external files for all secondary page views. This is accomplished by dynamically downloading the JS/CSS files in the home page (even if they might not be used in home page) after it has completely loaded. This places the external files in the browser’s cache <strong>in anticipation of</strong> the user continuing on to other pages.</p>
+<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
+<span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postOnload</span>(<span class="hljs-params"></span>) </span>&#123;</span>
+<span class="javascript">  <span class="hljs-built_in">setTimeout</span>(downloadCompo, <span class="hljs-number">1000</span>);</span>
+<span class="javascript">  <span class="hljs-comment">//one second delay to make sure the page is completely rendered</span></span>
+&#125;
+
+<span class="javascript"><span class="hljs-built_in">window</span>.onload = postOnload;</span>
+<span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">downloadCompo</span>(<span class="hljs-params"></span>) </span>&#123;</span>
+<span class="javascript">  downloadJS(<span class="hljs-string">&quot;http://example.com/example.js&quot;</span>);</span>
+<span class="javascript">  downloadCSS(<span class="hljs-string">&quot;http://example.com/example.css&quot;</span>);</span>
+&#125;
+
+<span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">downloadJS</span>(<span class="hljs-params">url</span>) </span>&#123;</span>
+<span class="javascript">  <span class="hljs-keyword">var</span> script = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;script&quot;</span>);</span>
+  script.src = url;
+<span class="javascript">  <span class="hljs-built_in">document</span>.body.appendChild(script);</span>
+&#125;
+
+<span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">downloadCSS</span>(<span class="hljs-params">url</span>) </span>&#123;</span>
+<span class="javascript">  <span class="hljs-keyword">var</span> css = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&quot;link&quot;</span>);</span>
+<span class="javascript">  css.rel = <span class="hljs-string">&quot;stylesheet&quot;</span>;</span>
+<span class="javascript">  css.type = <span class="hljs-string">&quot;text/css&quot;</span>;</span>
+  css.href = url;
+<span class="javascript">  <span class="hljs-built_in">document</span>.bodu.appendChild(css);</span>
+&#125;
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+
+<p>In case of double definition (same piece of code appears in both inlining and external files), inserting these components into an invisible <code>iframe</code> could tackle this problem.</p>
+<h4 id="Dynamic-Inlining"><a href="#Dynamic-Inlining" class="headerlink" title="Dynamic Inlining"></a>Dynamic Inlining</h4><p>This technique make use of the previous technique plus returning a session-based cookie with the components, to let the home page server to decide whether to use inline or extenal JS/CSS.</p>
+<p>The first time a user visit the page, the cookie is not present and the server will generate a page that inlines the components and then use the “Post-Onload Download” technique to prepare the external files for the next visit. So the next time the page is visited, the server sees the cookie and generate a page that uses external files which most likely have been cached.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/14/web-performance-reduce-dns-lookup/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Reduce DNS Lookups</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/08/08/web-performance-avoid-css-expressions/">
+                        <span class="hidden-mobile">Avoid CSS Expressions</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

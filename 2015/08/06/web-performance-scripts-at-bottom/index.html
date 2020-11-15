@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Put Scripts at the Bottom - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Put Scripts at the Bottom">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-06 16:00" pubdate>
+        August 6, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      297 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,90 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Put Scripts at the Bottom</h1>
+            
+            <div class="markdown-body">
+              <p>With scripts, progressive rendering is blocked for all content <em>below</em> the script. Moving scripts lower in the page means more content is rendered progressively.</p>
+<h3 id="Parallel-Downloads"><a href="#Parallel-Downloads" class="headerlink" title="Parallel Downloads"></a>Parallel Downloads</h3><p>Response time mainly affected by the number of compoments (resource files) in the page. Each component generate an HTTP request. Browser performs HTTP requests in parallel but <strong>can’t</strong> download them all at once.</p>
+<p>HTTP/1.1 suggests browsers to download two componnents in parallel per hostname. If a web page evenly distribute its components across two hostnames, the overall response would be about twice as fast. </p>
+<p>Limiting parallel downloads to two per hostname is a guideline. However, users can modify this setting in their browsers, and front-end engineers could use CNAMEs(DNS aliases) to split their components across multiple hostnames. Too many parallel downloads can degrade performance. Research at Yahoo! shows that splitting components across <strong>two</strong> hostnames leads to better performance than using 1, 4 or 10 hostnames.</p>
+<h3 id="Scripts-Block-Downloads"><a href="#Scripts-Block-Downloads" class="headerlink" title="Scripts Block Downloads"></a>Scripts Block Downloads</h3><p>The benefits of parallel downloading is clear. However, parallel downloading is <strong>disabled</strong> while a <strong>script</strong> is downloading, even on different hostnames because:</p>
+<ul>
+<li>The script may use <code>document.write</code> to alter the page content, so the browser waits to make sure the page is laid out appropriately.</li>
+<li>To guarantee that the scripts are executed in the proper order, otherwise executing them out of order would result in JavaScript errors.</li>
+</ul>
+<h3 id="Putting-It-in-Perspective"><a href="#Putting-It-in-Perspective" class="headerlink" title="Putting It in Perspective"></a>Putting It in Perspective</h3><p>In some situations, it’s not easy to move scripts to the bottom. For example if the script use <code>document.write</code> to insert part of the page’s content. There might also be scoping issues. If that script doesn’t contain <code>document.write</code>, you may use <em>deferred</em> scripts as a clue to browers that they can continue rendering. However, in Firefox, even deferred scripts block rendering and parallel downloads.</p>
 
-  //setTimeout(redirect, 3000)
-</script>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/08/web-performance-avoid-css-expressions/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Avoid CSS Expressions</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/08/04/web-performance-stylesheets-on-top/">
+                        <span class="hidden-mobile">Put Stylesheets at the Top</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +383,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

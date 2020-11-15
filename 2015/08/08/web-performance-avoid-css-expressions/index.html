@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Avoid CSS Expressions - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Avoid CSS Expressions">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-08 16:00" pubdate>
+        August 8, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      257 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,96 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Avoid CSS Expressions</h1>
+            
+            <div class="markdown-body">
+              <p>CSS expressions are a powerful but dangerous way to set CSS properties dynamically. They are supported in IE version 5 and later (<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/ms537634(v=vs.85).aspx">but are no longer supported in IE8 and later</a>).</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">background-color</span>: <span class="hljs-selector-tag">expression</span>( (<span class="hljs-selector-tag">new</span> <span class="hljs-selector-tag">Date</span>())<span class="hljs-selector-class">.getHours</span>()%2 ? &quot;<span class="hljs-selector-id">#B8D4FF</span>&quot; : &quot;<span class="hljs-selector-id">#F08A00</span>&quot;);</code></pre>
 
-  //setTimeout(redirect, 3000)
-</script>
+<p>The above example shows how background color could be set to alternate every hour using CSS expression. The expression method is ignored by all browsers other than IE, so it’s a useful tool for setting properties in IE to create consistent experience across browsers. For instance, IE6 doesn’t support <code>min-width</code>, you may use following css rules to achieve that: </p>
+<pre><code class="hljs css"><span class="hljs-selector-tag">width</span>: <span class="hljs-selector-tag">expression</span>( <span class="hljs-selector-tag">document</span><span class="hljs-selector-class">.body</span><span class="hljs-selector-class">.clientWidth</span> &lt; 600 ? &quot;600<span class="hljs-selector-tag">px</span>&quot; : &quot;<span class="hljs-selector-tag">auto</span>&quot; );
+<span class="hljs-selector-tag">min-width</span>: 600<span class="hljs-selector-tag">px</span>;</code></pre>
+
+<p>Browsers support <code>min-width</code> will ignore the first rule while IE6 ignore the <code>min-width</code> property and sets the <code>width</code> property dynamically based on the width of the document.</p>
+<h3 id="Updating-Expressions"><a href="#Updating-Expressions" class="headerlink" title="Updating Expressions"></a>Updating Expressions</h3><p>The problem with expressions is that they’re evaluated <strong>too frequently</strong>. They’re evaluated when:</p>
+<ul>
+<li>Page is rendered and resized</li>
+<li>Page is scrolled</li>
+<li>User moves the mouse over the page</li>
+</ul>
+<p>Moving the mouse around the page can easily generate &gt;10,000 evaluations. Worst of all, clicking in the text input field locks up IE and you have to kill the process.</p>
+<h3 id="Working-Around"><a href="#Working-Around" class="headerlink" title="Working Around"></a>Working Around</h3><p>The working around is to use JavaScript to achieve the dynamic change, either define a function to do a one-time expressions or an event handler to respond to the intended action only to avoid evaluation of the expression during unrelated events.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/10/web-performance-make-js-css-external/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Make JavaScript and CSS External</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/08/06/web-performance-scripts-at-bottom/">
+                        <span class="hidden-mobile">Put Scripts at the Bottom</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +389,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

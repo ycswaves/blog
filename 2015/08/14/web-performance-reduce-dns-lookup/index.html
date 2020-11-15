@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Reduce DNS Lookups - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Reduce DNS Lookups">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-14 16:00" pubdate>
+        August 14, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      517 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,94 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Reduce DNS Lookups</h1>
+            
+            <div class="markdown-body">
+              <p>The role of the Domain Name System(DNS) is to map hostnames to IP addresses. When a user type a URL into the browser, a DNS resolver will return the IP address of the server hosting the site that the user requested.</p>
+<p>If a server is replaced by one with a different IP address, DNS allows users to use the same hostname to connect to the new server; if multiple IP addresses can be associated with a hostname, DNS provides a high degree of redundancy for a web site.</p>
+<p>DNS typically takes 20~120 ms for the browser to look up the IP address for a given hostname. The browser can’t download anything from this hostname until the DNS lookup is completed. The response time depends on the DNS resolver:</p>
+<ul>
+<li>The load of requests on it</li>
+<li>User’s proximity to it</li>
+<li>User’s bandwidth speed</li>
+</ul>
+<h3 id="DNS-Caching-and-TTLs"><a href="#DNS-Caching-and-TTLs" class="headerlink" title="DNS Caching and TTLs"></a>DNS Caching and TTLs</h3><p>DNS lookups are cached for bettern performance. There are multiple occasions of DNS being cached. One can occur on a special caching server maintained by the user’s ISP or LAN. Another two are at user’s side, one is in OS and the other in browser. If browser keeps a DNS record in its cache, then no need to bother OS. Otherwise, OS will either retrieve from its own cache or sends a request to a remote server (where potential slowdowns occur). In addtion, IP addresses could change and DNS caches consume memory. Therefore, the DNS records have to be periodically flushed from the cache, and several different configuration settings determine how often they are discarded.</p>
+<h4 id="Factors-Affecting-DNS-Caching"><a href="#Factors-Affecting-DNS-Caching" class="headerlink" title="Factors Affecting DNS Caching"></a>Factors Affecting DNS Caching</h4><p>The DNS record returned from a lookup contains a time-to-live (TTL) value. This tells the client how long the record can be cached.</p>
+<p>While DNS cache in the OS respect the TTL, browsers often ignore it and set their own time limit. Furthermore, the <code>Keep-Alive</code> feature of the HTTP can override both the TTL and the browser’s time limit.</p>
+<p>Browsers put a limit on the number of DNS records cached, regardless of the time the records have been in the cache. Once reaching limit, early DNS records are discarded. However, the OS cache might still be there and that saves the effort to query for the record over the network.</p>
+<h4 id="TTL-Values"><a href="#TTL-Values" class="headerlink" title="TTL Values"></a>TTL Values</h4><p>The TTL can range from 1 minute to 1 hour. If failover (when old server goes offline and new ones deployed) is critical, short TTL is chosen. Otherwise a longer TTL makes more sense because it reduces the number of DNS lookups.</p>
+<h3 id="Reducing-DNS-Lookups"><a href="#Reducing-DNS-Lookups" class="headerlink" title="Reducing DNS Lookups"></a>Reducing DNS Lookups</h3><p>The number of DNS lookups is equal to the number of unique hostnames in the web page. Reducing the number of unique hostnames reduces the number of DNS lookups. However, it has the potential to reduce the amount of parallel downloading. So the general guideline is to use at least 2 but no more than 4 hostnames. This results in a good compromise between reducing DNS lookups and allowing a high degree of parallel downloads. Also, make sure the server supports <code>Keep-Alive</code>, that helps reducing DNS lookups too.</p>
 
-  //setTimeout(redirect, 3000)
-</script>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/19/web-performance-minify/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Minify JavaScript</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/08/10/web-performance-make-js-css-external/">
+                        <span class="hidden-mobile">Make JavaScript and CSS External</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +387,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

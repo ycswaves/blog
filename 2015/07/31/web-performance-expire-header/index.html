@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Add an Expires Header - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Add an Expires Header">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-07-31 16:00" pubdate>
+        July 31, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      210 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      4
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,113 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Add an Expires Header</h1>
+            
+            <div class="markdown-body">
+              <h3 id="Expires-Header"><a href="#Expires-Header" class="headerlink" title="Expires Header"></a>Expires Header</h3><p>By using a future <code>Expires</code> header, it makes images, scripts or stylesheets cacheable and avoids unnecessary HTTP requests on subsequent page views.</p>
+<p><strong>Browsers</strong> use a cache to reduce the number of HTTP requests and decrease the size of HTTP response, thus making web pages load faster.<br><strong>Web servers</strong> use the <code>Expires</code> header to tell the browser that it can use the current copy of a resource file until the specified time.</p>
+<pre><code class="hljs html">Expires: Sun, 1 Aug 2015 14:30:00</code></pre>
 
-  //setTimeout(redirect, 3000)
-</script>
+<h3 id="Max-Age-and-mod-expires"><a href="#Max-Age-and-mod-expires" class="headerlink" title="Max-Age and mod_expires"></a>Max-Age and mod_expires</h3><p>The <code>Cache-Control</code> header was introduced, as an alternative to the <code>Expires</code> header, in HTTP/1.1, to overcome limitations with the <code>Expires</code> header.</p>
+<pre><code class="hljs html">Cache-Control: max-age=315360000</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Expires</th>
+<th>Cache-Control</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Specific date</td>
+<td>Use <code>max-age</code> to define fresheness window in seconds</td>
+</tr>
+<tr>
+<td>Expire date constantly checked</td>
+<td></td>
+</tr>
+<tr>
+<td>Once expire, new date must be provided</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>If both are present, <code>max-age</code> directive will override the <code>Expires</code> header. </p>
+<h3 id="Get-user-updated-when-cached-files-change"><a href="#Get-user-updated-when-cached-files-change" class="headerlink" title="Get user updated when cached files change"></a>Get user updated when cached files change</h3><p>To ensure users get the latest version of a file, change the filename in all HTML pages:</p>
+<blockquote>
+<p>The most effective solution is to change any links to them; that way, completely new representations will be loaded fresh from the origin server. </p>
+</blockquote>
+<p>Tips: Embed the version number in the filename (e.g. *my_js_file_v2.0.1.js).</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/02/web-performance-compress/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Gzip Components</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/07/27/web-performance-cdn/">
+                        <span class="hidden-mobile">Use Content Delivery Network (CDN)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +406,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 

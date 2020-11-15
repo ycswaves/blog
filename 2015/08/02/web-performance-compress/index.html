@@ -17,9 +17,25 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Page not found - Hexo</title>
+  <title>Gzip Components - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
 
 
 
@@ -47,7 +63,7 @@
 
 
 <body>
-  <header style="height: 85vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -146,9 +162,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Page not found">
+            <span class="h2" id="subtitle" title="Gzip Components">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2015-08-02 16:00" pubdate>
+        August 2, 2015 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      143 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      2
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -163,13 +216,101 @@
     
       
 
-<script>
-  function redirect() {
-    location.href = "/";
-  }
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Gzip Components</h1>
+            
+            <div class="markdown-body">
+              <h3 id="How-Compression-Works"><a href="#How-Compression-Works" class="headerlink" title="How Compression Works"></a>How Compression Works</h3><p>Starting with HTTP/1.1, web clients indicate support for compression with the <code>Accept-Encoding</code> header in the HTTP request.</p>
+<pre><code class="hljs html">Accept-Encoding: gzip, deflate</code></pre>
 
-  //setTimeout(redirect, 3000)
-</script>
+<p>Web server sees this header will compress the reponse using one of the methods listed and nofify the client via the <code>Content-Encoding</code> header in the reponse</p>
+<pre><code class="hljs html">Content-Encoding: gzip</code></pre>
+
+<blockquote>
+<p>Browsers that support <code>deflate</code> also support <code>gzip</code> but not the other way around, so <code>gzip</code> is the preferred method of compression.</p>
+</blockquote>
+<h3 id="What-to-Compress"><a href="#What-to-Compress" class="headerlink" title="What to Compress"></a>What to Compress</h3><ul>
+<li>HTML documents</li>
+<li>Scripts</li>
+<li>Stylesheets</li>
+<li>XML/JSON reponses  </li>
+</ul>
+<h4 id="Not-to-compress"><a href="#Not-to-compress" class="headerlink" title="Not to compress:"></a>Not to compress:</h4><ul>
+<li>Image</li>
+<li>PDF</li>
+</ul>
+<p>As they are already compressed. Trying to gzip wastes CPU resources and could also potentially increase file sizes.</p>
+<h4 id="Cost-of-gzipping"><a href="#Cost-of-gzipping" class="headerlink" title="Cost of gzipping"></a>Cost of gzipping</h4><p>It takes additional CPU cycles on both server-side and client-side to compress and decompress the gzipped files. Generally, it’s worth gzipping any file greater than <strong>1 or 2K</strong>.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2015/08/04/web-performance-stylesheets-on-top/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Put Stylesheets at the Top</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2015/07/31/web-performance-expire-header/">
+                        <span class="hidden-mobile">Add an Expires Header</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
 
@@ -253,9 +394,15 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
 
 
 
