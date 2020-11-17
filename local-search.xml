@@ -4,13 +4,19 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/blog/2020/11/15/hello-world/"/>
-    <url>/blog/2020/11/15/hello-world/</url>
+    <title>Vim Fold How-To</title>
+    <link href="/blog/2020/11/16/vim-fold-how-to/"/>
+    <url>/blog/2020/11/16/vim-fold-how-to/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p>There are multiple folding methods in Vim, and the two most frequently used methods I’ve been using are:</p><h1 id="Manual"><a href="#Manual" class="headerlink" title="Manual"></a>Manual</h1><p>Folds must be defined by entering commands such as <code>zf</code>, which is the default folding method if there’s no <code>foldmethod</code> specified.<br>You can use vim command:</p><pre><code class="hljs coq"><span class="hljs-built_in">set</span> foldmethod=[manual|<span class="hljs-type">indent</span>|<span class="hljs-type">syntax</span>|<span class="hljs-type">...]</span></code></pre><p>to specify the folding method in the current window.</p><p>In normal mode, a fold can be created by typing:</p><pre><code class="hljs dust"><span class="xml">zf</span><span class="hljs-template-variable">&#123;motion&#125;</span></code></pre><p>Example 1 - Folds the current line along with the following 3 lines</p><img src="/blog/2020/11/16/vim-fold-how-to/zf3j.gif" class="" title="folds the current line along with the following 3 lines"><p>Example 2 - Folds the current line till the end of the file</p><img src="/blog/2020/11/16/vim-fold-how-to/zfG.gif" class="" title="folds the current line till the end of the file"><h1 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h1><p>Syntax fold can be activated by running <code>setlocal foldmethod=syntax</code> in Vim command mode. In this mode, fold can be created based on the syntax. For example, you can create a fold around a code block or function declaration.</p><p>Example 3 - Fold a block</p><img src="/blog/2020/11/16/vim-fold-how-to/zcBlock.gif" class="" title="create a fold around a code block"><p>Example 4 - Fold a variable assignment</p><img src="/blog/2020/11/16/vim-fold-how-to/zcAssignment.gif" class="" title="create a fold around a variable assignment"><h1 id="Common-commands"><a href="#Common-commands" class="headerlink" title="Common commands"></a>Common commands</h1><ul><li><code>zr</code>: reduces fold level throughout the buffer</li><li><code>zR</code>: opens all folds</li><li><code>zm(inimize)</code>: increases fold level throughout the buffer</li><li><code>zM</code>: folds everything all the way</li><li><code>za(lternate)</code>: alternate a fold your cursor is on</li><li><code>zA</code>: alternate a fold your cursor is on recursively</li><li><code>zc(lose)</code>: close a fold your cursor is on</li><li><code>zC</code>: close a fold your cursor is on recursively</li><li><code>zo(pen)</code>: open one fold under the cursor.</li><li><code>zO</code>: open all fold under the cursor.</li></ul>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>vim</tag>
+      
+    </tags>
     
   </entry>
   

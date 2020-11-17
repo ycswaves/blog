@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Avoid Redirects - Hexo</title>
+  <title>Vim Fold How-To - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Avoid Redirects">
+            <span class="h2" id="subtitle" title="Vim Fold How-To">
               
             </span>
 
@@ -172,8 +172,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2015-09-08 16:00" pubdate>
-        September 8, 2015 pm
+      <time datetime="2020-11-16 13:11" pubdate>
+        November 16, 2020 pm
       </time>
     </span>
   
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      111 字
+      226 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      4
        分钟
     </span>
   
@@ -224,20 +224,39 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Avoid Redirects</h1>
+            <h1 style="display: none">Vim Fold How-To</h1>
             
             <div class="markdown-body">
-              <p>A <code>redirect</code> is used to reroute users from ono URL to another, <code>301</code> and <code>302</code> are the most popular ones. Redirects are usually done for HTML documents, but may also be used when requesting components in the page (images, scripts, etc.).</p>
-<h3 id="Types-of-Redirects"><a href="#Types-of-Redirects" class="headerlink" title="Types of Redirects"></a>Types of Redirects</h3><p>When web servers return a redirect to the browser, the response has a status code in the 3xx Ramge:</p>
-<ul>
-<li>300 Multiple Choices (based on Content-Type)</li>
-<li>301 Moved Permanently</li>
-<li>302 Moved Temporarily (a.k.a Found)</li>
-<li>303 See Other (clarification of 302)</li>
-<li>304 Not Modified (not really a redirect, used in response to condtional GET)</li>
-<li>305 Use Proxy</li>
-<li>306 (no longer used)</li>
-<li>307 Temporary Redirect (clarification of 302)</li>
+              <p>There are multiple folding methods in Vim, and the two most frequently used methods I’ve been using are:</p>
+<h1 id="Manual"><a href="#Manual" class="headerlink" title="Manual"></a>Manual</h1><p>Folds must be defined by entering commands such as <code>zf</code>, which is the default folding method if there’s no <code>foldmethod</code> specified.<br>You can use vim command:</p>
+<pre><code class="hljs coq"><span class="hljs-built_in">set</span> foldmethod=[manual|<span class="hljs-type">indent</span>|<span class="hljs-type">syntax</span>|<span class="hljs-type">...]</span></code></pre>
+<p>to specify the folding method in the current window.</p>
+<p>In normal mode, a fold can be created by typing:</p>
+<pre><code class="hljs dust"><span class="xml">zf</span><span class="hljs-template-variable">&#123;motion&#125;</span></code></pre>
+<p>Example 1 - Folds the current line along with the following 3 lines</p>
+<img src="/blog/2020/11/16/vim-fold-how-to/zf3j.gif" srcset="/blog/img/loading.gif" class="" title="folds the current line along with the following 3 lines">
+
+<p>Example 2 - Folds the current line till the end of the file</p>
+<img src="/blog/2020/11/16/vim-fold-how-to/zfG.gif" srcset="/blog/img/loading.gif" class="" title="folds the current line till the end of the file">
+
+<h1 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h1><p>Syntax fold can be activated by running <code>setlocal foldmethod=syntax</code> in Vim command mode. In this mode, fold can be created based on the syntax. For example, you can create a fold around a code block or function declaration.</p>
+<p>Example 3 - Fold a block</p>
+<img src="/blog/2020/11/16/vim-fold-how-to/zcBlock.gif" srcset="/blog/img/loading.gif" class="" title="create a fold around a code block">
+
+<p>Example 4 - Fold a variable assignment</p>
+<img src="/blog/2020/11/16/vim-fold-how-to/zcAssignment.gif" srcset="/blog/img/loading.gif" class="" title="create a fold around a variable assignment">
+
+<h1 id="Common-commands"><a href="#Common-commands" class="headerlink" title="Common commands"></a>Common commands</h1><ul>
+<li><code>zr</code>: reduces fold level throughout the buffer</li>
+<li><code>zR</code>: opens all folds</li>
+<li><code>zm(inimize)</code>: increases fold level throughout the buffer</li>
+<li><code>zM</code>: folds everything all the way</li>
+<li><code>za(lternate)</code>: alternate a fold your cursor is on</li>
+<li><code>zA</code>: alternate a fold your cursor is on recursively</li>
+<li><code>zc(lose)</code>: close a fold your cursor is on</li>
+<li><code>zC</code>: close a fold your cursor is on recursively</li>
+<li><code>zo(pen)</code>: open one fold under the cursor.</li>
+<li><code>zO</code>: open all fold under the cursor.</li>
 </ul>
 
             </div>
@@ -245,13 +264,13 @@
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/blog/categories/notes/">notes</a>
+                      <a class="hover-with-bg" href="/blog/tags/vim/">vim</a>
                     
                   </div>
-                
                 
               </div>
               
@@ -262,18 +281,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2020/11/16/vim-fold-how-to/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vim Fold How-To</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2015/08/19/web-performance-minify/">
-                        <span class="hidden-mobile">Minify JavaScript</span>
+                      <a href="/blog/2015/09/08/web-performance-avoid-redirects/">
+                        <span class="hidden-mobile">Avoid Redirects</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
