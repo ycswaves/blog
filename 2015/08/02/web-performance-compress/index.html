@@ -228,10 +228,10 @@
             
             <div class="markdown-body">
               <h3 id="How-Compression-Works"><a href="#How-Compression-Works" class="headerlink" title="How Compression Works"></a>How Compression Works</h3><p>Starting with HTTP/1.1, web clients indicate support for compression with the <code>Accept-Encoding</code> header in the HTTP request.</p>
-<pre><code class="hljs html">Accept-Encoding: gzip, deflate</code></pre>
+<div class="hljs"><pre><code class="hljs html">Accept-Encoding: gzip, deflate</code></pre></div>
 
 <p>Web server sees this header will compress the reponse using one of the methods listed and nofify the client via the <code>Content-Encoding</code> header in the reponse</p>
-<pre><code class="hljs html">Content-Encoding: gzip</code></pre>
+<div class="hljs"><pre><code class="hljs html">Content-Encoding: gzip</code></pre></div>
 
 <blockquote>
 <p>Browsers that support <code>deflate</code> also support <code>gzip</code> but not the other way around, so <code>gzip</code> is the preferred method of compression.</p>

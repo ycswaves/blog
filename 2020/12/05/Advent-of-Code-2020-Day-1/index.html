@@ -228,7 +228,7 @@
             
             <div class="markdown-body">
               <p>Challenges in Day 1 are essentially the <a target="_blank" rel="noopener" href="https://leetcode.com/problems/two-sum/">“Two Sum” problem</a>.</p>
-<h2 id="Solution-to-part-1"><a href="#Solution-to-part-1" class="headerlink" title="Solution to part 1"></a>Solution to part 1</h2><pre><code class="hljs elixir"><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Report</span></span> <span class="hljs-keyword">do</span>
+<h2 id="Solution-to-part-1"><a href="#Solution-to-part-1" class="headerlink" title="Solution to part 1"></a>Solution to part 1</h2><div class="hljs"><pre><code class="hljs elixir"><span class="hljs-class"><span class="hljs-keyword">defmodule</span> <span class="hljs-title">Report</span></span> <span class="hljs-keyword">do</span>
   <span class="hljs-variable">@input_file_path</span> Path.expand(<span class="hljs-string">&#x27;./input.txt&#x27;</span>, __DIR__)
 
   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">report</span></span>(report_in_list, target_sum) <span class="hljs-keyword">do</span>
@@ -254,8 +254,8 @@
     File.read!(<span class="hljs-variable">@input_file_path</span>)
     |&gt; String.split(<span class="hljs-string">&quot;\n&quot;</span>, <span class="hljs-symbol">trim:</span> <span class="hljs-keyword">true</span>)
     |&gt; Enum.map(&amp;String.to_integer/<span class="hljs-number">1</span>)
-  <span class="hljs-keyword">end</span></code></pre>
-<h2 id="Solution-to-part-2"><a href="#Solution-to-part-2" class="headerlink" title="Solution to part 2"></a>Solution to part 2</h2><pre><code class="hljs elixir"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">report_three</span></span>(report_in_list, target_sum) <span class="hljs-keyword">do</span>
+  <span class="hljs-keyword">end</span></code></pre></div>
+<h2 id="Solution-to-part-2"><a href="#Solution-to-part-2" class="headerlink" title="Solution to part 2"></a>Solution to part 2</h2><div class="hljs"><pre><code class="hljs elixir"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">report_three</span></span>(report_in_list, target_sum) <span class="hljs-keyword">do</span>
   report_in_list
   |&gt; Enum.reduce(<span class="hljs-number">-1</span>, <span class="hljs-keyword">fn</span> x, result -&gt;
     two_sum = report(report_in_list, target_sum - x)
@@ -266,7 +266,7 @@
       <span class="hljs-keyword">true</span> -&gt; result
     <span class="hljs-keyword">end</span>
   <span class="hljs-keyword">end</span>)
-<span class="hljs-keyword">end</span></code></pre>
+<span class="hljs-keyword">end</span></code></pre></div>
 <p>Full solution can be found <a target="_blank" rel="noopener" href="https://github.com/ycswaves/aoc-2020/blob/main/lib/day1/report_repair.ex">here</a></p>
 
             </div>

@@ -231,12 +231,12 @@
 <h3 id="Progressive-Rendering"><a href="#Progressive-Rendering" class="headerlink" title="Progressive Rendering"></a>Progressive Rendering</h3><p>The problem with putting stylesheets near the bottom of the page is that it prohibits progressive rending in many browsers. Browsers block rendering to <strong>avoid having to redraw elements of the page</strong> if their style change. The browser delays showing any visible components while it and the user wait for the stylesheet at the bottom. </p>
 <h3 id="CSS-at-the-Top"><a href="#CSS-at-the-Top" class="headerlink" title="CSS at the Top"></a>CSS at the Top</h3><p>To avoid the blank white screen at the very first beginning of page loading, especially in IE, move the stylesheet to the top in the HTML’s <code>&lt;head&gt;</code> section so that the page can render progressively.</p>
 <h4 id="Two-ways-of-including-a-stylesheet-in-HTML"><a href="#Two-ways-of-including-a-stylesheet-in-HTML" class="headerlink" title="Two ways of including a stylesheet in HTML"></a>Two ways of including a stylesheet in HTML</h4><p>Link tag:</p>
-<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;styles1.css&quot;</span>&gt;</span></code></pre>
+<div class="hljs"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;styles1.css&quot;</span>&gt;</span></code></pre></div>
 
 <p>@import:</p>
-<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>
+<div class="hljs"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span>
 <span class="css">  <span class="hljs-keyword">@import</span> url(<span class="hljs-string">&quot;styles2.css&quot;</span>);</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></code></pre></div>
 
 <p>Benefits of <code>&lt;link&gt;</code> over <code>@import</code>:</p>
 <ul>

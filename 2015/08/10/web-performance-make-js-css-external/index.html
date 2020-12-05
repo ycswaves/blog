@@ -243,7 +243,7 @@
 <p><em>Component Reuse:</em> The reuse rate is low. Many home pages are the only page a user visits on the site, so there is really no reuse.</p>
 <h3 id="The-Best-of-Both-Worlds"><a href="#The-Best-of-Both-Worlds" class="headerlink" title="The Best of Both Worlds"></a>The Best of Both Worlds</h3><p>Even if all the factors point to inlining, it still feels inefficient to add all that JS and CSS to the page and not take advantage of the browser’s cache. Two techniques are described here that allow you to gain the benefits of inlining, as well as caching external files.</p>
 <h4 id="Post-Onload-Download"><a href="#Post-Onload-Download" class="headerlink" title="Post-Onload Download"></a>Post-Onload Download</h4><p>Home page itself might be a good place to apply inlining, but also used to leverage external files for all secondary page views. This is accomplished by dynamically downloading the JS/CSS files in the home page (even if they might not be used in home page) after it has completely loaded. This places the external files in the browser’s cache <strong>in anticipation of</strong> the user continuing on to other pages.</p>
-<pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
+<div class="hljs"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span>
 <span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">postOnload</span>(<span class="hljs-params"></span>) </span>&#123;</span>
 <span class="javascript">  <span class="hljs-built_in">setTimeout</span>(downloadCompo, <span class="hljs-number">1000</span>);</span>
 <span class="javascript">  <span class="hljs-comment">//one second delay to make sure the page is completely rendered</span></span>
@@ -268,7 +268,7 @@
   css.href = url;
 <span class="javascript">  <span class="hljs-built_in">document</span>.bodu.appendChild(css);</span>
 &#125;
-<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre></div>
 
 <p>In case of double definition (same piece of code appears in both inlining and external files), inserting these components into an invisible <code>iframe</code> could tackle this problem.</p>
 <h4 id="Dynamic-Inlining"><a href="#Dynamic-Inlining" class="headerlink" title="Dynamic Inlining"></a>Dynamic Inlining</h4><p>This technique make use of the previous technique plus returning a session-based cookie with the components, to let the home page server to decide whether to use inline or extenal JS/CSS.</p>

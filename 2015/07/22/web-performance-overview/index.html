@@ -245,17 +245,17 @@
 <p>A request includes the type of request (e.g GET), a URL followed by headers. A response contains a status code, headers and a body.</p>
 <h4 id="Compression"><a href="#Compression" class="headerlink" title="Compression"></a>Compression</h4><p>The size of reponse can be reduced using compression if <strong>both</strong> the browser and server support it. For example, the browser announces its support of <code>gzip</code> using the <code>Accept-Encoding</code> header. The server identify compressed responses using the <code>Content-Encoding</code> header.</p>
 <p>Request:</p>
-<pre><code class="hljs ruby">Accept-<span class="hljs-symbol">Encoding:</span> gzip</code></pre>
+<div class="hljs"><pre><code class="hljs ruby">Accept-<span class="hljs-symbol">Encoding:</span> gzip</code></pre></div>
 
 <p>Response:</p>
-<pre><code class="hljs ruby">Content-<span class="hljs-symbol">Encoding:</span> gzip</code></pre>
+<div class="hljs"><pre><code class="hljs ruby">Content-<span class="hljs-symbol">Encoding:</span> gzip</code></pre></div>
 
 <h4 id="Conditional-GET"><a href="#Conditional-GET" class="headerlink" title="Conditional GET"></a>Conditional GET</h4><p>The browser may cache certain resource files like <code>.css</code> and <code>.js</code> files. To make sure those cached files are not modified since the time of last retrieval, a conditional GET request is sent by using <code>If-Modified-Since</code> header.</p>
-<pre><code class="hljs ruby">If-Modified-<span class="hljs-symbol">Since:</span> Fri, <span class="hljs-number">24</span> Jul <span class="hljs-number">2015</span> <span class="hljs-number">04</span><span class="hljs-symbol">:</span><span class="hljs-number">15</span><span class="hljs-symbol">:</span><span class="hljs-number">54</span> GMT</code></pre>
+<div class="hljs"><pre><code class="hljs ruby">If-Modified-<span class="hljs-symbol">Since:</span> Fri, <span class="hljs-number">24</span> Jul <span class="hljs-number">2015</span> <span class="hljs-number">04</span><span class="hljs-symbol">:</span><span class="hljs-number">15</span><span class="hljs-symbol">:</span><span class="hljs-number">54</span> GMT</code></pre></div>
 
 <p>And if the requested resource is not expired, server will respond with a ‘304 Not Modified’ status and <strong>skip sending the reponse body</strong>, resulting in a smaller and faster response.</p>
 <h4 id="Keep-Alive"><a href="#Keep-Alive" class="headerlink" title="Keep-Alive"></a>Keep-Alive</h4><p>HTTP is built on top of TCP. In early days, every HTTP request required opening a new socket connection. Thus <em>Persistent Connections</em> (a.k.a “Keep-Alive” in HTTP/1.0) was introduced to let browsers make multiple requests over a single connection.</p>
-<pre><code class="hljs ruby"><span class="hljs-symbol">Connection:</span> keep-alive</code></pre>
+<div class="hljs"><pre><code class="hljs ruby"><span class="hljs-symbol">Connection:</span> keep-alive</code></pre></div>
 
 <p>Technically, <code>keep-alive</code> is not required in HTTP/1.1, but most browsers and servers still include it.</p>
 
