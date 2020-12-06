@@ -182,7 +182,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2020-12-06 21:14" pubdate>
+      <time datetime="2020-12-06 13:14" pubdate>
         December 6, 2020 pm
       </time>
     </span>
@@ -246,7 +246,8 @@
             
             <div class="markdown-body">
               <h2 id="Part-1"><a href="#Part-1" class="headerlink" title="Part 1"></a>Part 1</h2><p>Three different ways to solve part 1</p>
-<h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method 1"></a>Method 1</h3><p>Remove all the required letter in the password and compare with the original password and count how many letters are missing.<br>This number is essentially the number of occurences of the required letters in the password.</p>
+<h3 id="Method-1"><a href="#Method-1" class="headerlink" title="Method 1"></a>Method 1</h3><p>Remove all the required letter in the password and compare with the original password and count how many letters are missing.</p>
+<p>This number is essentially the number of occurences of the required letters in the password.</p>
 <div class="code-wrapper"><pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir">
 <span class="token keyword">defmodule</span> Password <span class="token keyword">do</span>
   <span class="token attribute variable">@input_file_path</span> Path<span class="token punctuation">.</span>expand<span class="token punctuation">(</span><span class="token string">'./input.txt'</span><span class="token punctuation">,</span> __DIR__<span class="token punctuation">)</span>
@@ -280,7 +281,8 @@
     <span class="token operator">|></span> String<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">,</span> <span class="token attr-name">trim:</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
   <span class="token keyword">end</span>
 <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<h3 id="Method-2"><a href="#Method-2" class="headerlink" title="Method 2"></a>Method 2</h3><p>Split the password string into a list of letters and use <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Enum.html#frequencies/1"><code>Enum.frequencies/1</code></a> to get the number of occurences of the required letter.<br>One edge case is the the required letter may not appear at all. In this case, the pattern-match<br>on the result map will throw an error and therefore requires a <code>try-catch</code> block.</p>
+<h3 id="Method-2"><a href="#Method-2" class="headerlink" title="Method 2"></a>Method 2</h3><p>Split the password string into a list of letters and use <a target="_blank" rel="noopener" href="https://hexdocs.pm/elixir/Enum.html#frequencies/1"><code>Enum.frequencies/1</code></a> to get the number of occurences of the required letter.</p>
+<p>One edge case is the the required letter may not appear at all. In this case, the pattern-match<br>on the result map will throw an error and therefore requires a <code>try-catch</code> block.</p>
 <div class="code-wrapper"><pre class="line-numbers language-elixir" data-language="elixir"><code class="language-elixir"><span class="token keyword">defmodule</span> Password <span class="token keyword">do</span>
   <span class="token comment"># ...</span>
   <span class="token keyword">def</span> validate_method2<span class="token punctuation">(</span>entry<span class="token punctuation">)</span> <span class="token keyword">do</span>
@@ -387,16 +389,15 @@
                 
   <div class="disqus" style="width:100%">
     <div id="disqus_thread"></div>
-    <script type="text/javascript">
-      var disqus_config = function() {
-        this.page.url = 'http://example.com/2020/12/06/Advent-of-Code-2020-Day-2/';
-        this.page.identifier = '/blog/2020/12/06/Advent-of-Code-2020-Day-2/';
-      };
-      Fluid.utils.waitElementVisible('disqus_thread', function () {
-        var d = document, s = d.createElement('script');
-        s.src = '//' + '' + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', new Date());
-        (d.head || d.body).appendChild(s);
+    <script>
+      Fluid.utils.waitElementVisible('disqus_thread', function() {
+        Fluid.utils.createCssLink('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqusjs.css');
+        Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/disqus.js', function () {
+          new DisqusJS({
+            shortname: 'ycswaves-1',
+            apikey: ''
+          });
+        });
       });
     </script>
     <noscript>Please enable JavaScript to view the
