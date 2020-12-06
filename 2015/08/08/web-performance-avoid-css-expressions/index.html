@@ -29,7 +29,17 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -55,7 +65,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/blog/js/utils.js" ></script>
   <script  src="/blog/js/color-schema.js" ></script>
@@ -63,7 +73,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 35vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -157,7 +167,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/blog/img/default.png') no-repeat center center;
+         style="background: url('https://picsum.photos/1280/480') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -184,7 +194,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      257 字
+      249 字
     </span>
   
 
@@ -194,12 +204,20 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      4
        分钟
     </span>
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -228,11 +246,11 @@
             
             <div class="markdown-body">
               <p>CSS expressions are a powerful but dangerous way to set CSS properties dynamically. They are supported in IE version 5 and later (<a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/ms537634(v=vs.85).aspx">but are no longer supported in IE8 and later</a>).</p>
-<div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-tag">background-color</span>: <span class="hljs-selector-tag">expression</span>( (<span class="hljs-selector-tag">new</span> <span class="hljs-selector-tag">Date</span>())<span class="hljs-selector-class">.getHours</span>()%2 ? &quot;<span class="hljs-selector-id">#B8D4FF</span>&quot; : &quot;<span class="hljs-selector-id">#F08A00</span>&quot;);</code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">expression</span><span class="token punctuation">(</span> <span class="token punctuation">(</span>new <span class="token function">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>.<span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span>%2 ? <span class="token string">"#B8D4FF"</span> <span class="token punctuation">:</span> <span class="token string">"#F08A00"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
 
 <p>The above example shows how background color could be set to alternate every hour using CSS expression. The expression method is ignored by all browsers other than IE, so it’s a useful tool for setting properties in IE to create consistent experience across browsers. For instance, IE6 doesn’t support <code>min-width</code>, you may use following css rules to achieve that: </p>
-<div class="hljs"><pre><code class="hljs css"><span class="hljs-selector-tag">width</span>: <span class="hljs-selector-tag">expression</span>( <span class="hljs-selector-tag">document</span><span class="hljs-selector-class">.body</span><span class="hljs-selector-class">.clientWidth</span> &lt; 600 ? &quot;600<span class="hljs-selector-tag">px</span>&quot; : &quot;<span class="hljs-selector-tag">auto</span>&quot; );
-<span class="hljs-selector-tag">min-width</span>: 600<span class="hljs-selector-tag">px</span>;</code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token property">width</span><span class="token punctuation">:</span> <span class="token function">expression</span><span class="token punctuation">(</span> document.body.clientWidth &lt; 600 ? <span class="token string">"600px"</span> <span class="token punctuation">:</span> <span class="token string">"auto"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token property">min-width</span><span class="token punctuation">:</span> 600px<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
 
 <p>Browsers support <code>min-width</code> will ignore the first rule while IE6 ignore the <code>min-width</code> property and sets the <code>width</code> property dynamically based on the width of the document.</p>
 <h3 id="Updating-Expressions"><a href="#Updating-Expressions" class="headerlink" title="Updating Expressions"></a>Updating Expressions</h3><p>The problem with expressions is that they’re evaluated <strong>too frequently</strong>. They’re evaluated when:</p>
@@ -287,6 +305,32 @@
               
             </div>
 
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'http://example.com/2015/08/08/web-performance-avoid-css-expressions/';
+        this.page.identifier = '/blog/2015/08/08/web-performance-avoid-css-expressions/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
             
           </article>
         </div>
@@ -386,6 +430,8 @@
 
 
   
+    
+  
 
 
 
@@ -403,6 +449,9 @@
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
 
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 

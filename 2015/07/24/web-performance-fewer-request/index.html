@@ -29,7 +29,17 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.1.2/styles/github-gist.min.css" />
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
     
   
 
@@ -55,7 +65,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/blog/js/utils.js" ></script>
   <script  src="/blog/js/color-schema.js" ></script>
@@ -63,7 +73,7 @@
 
 
 <body>
-  <header style="height: 70vh;">
+  <header style="height: 35vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -157,7 +167,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/blog/img/default.png') no-repeat center center;
+         style="background: url('https://picsum.photos/1280/480') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -184,7 +194,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      430 字
+      370 字
     </span>
   
 
@@ -194,12 +204,20 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -235,21 +253,21 @@
 <li>combined scripts and stylesheets</li>
 </ul>
 <h3 id="1-Image-Map"><a href="#1-Image-Map" class="headerlink" title="1. Image Map"></a>1. Image Map</h3><p>There are 2 types of them:<br><strong>Server-side</strong> image maps: by submitting all clicks to the same destination URL, passing along the x,y coordinates of where the user clicked.<br><strong>Client-side</strong>: The mapping is achieved via HTML’s <code>&lt;map&gt;</code> tag.<br>Example:</p>
-<div class="hljs"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">usemap</span>=<span class="hljs-string">&quot;#map1&quot;</span> <span class="hljs-attr">border</span>=<span class="hljs-string">0</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/images/imagemap.gif&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">map</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;map1&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">area</span> <span class="hljs-attr">shape</span>=<span class="hljs-string">&quot;rect&quot;</span> <span class="hljs-attr">coords</span>=<span class="hljs-string">&quot;0,0,31,31&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;home.html&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Home&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">area</span> <span class="hljs-attr">shape</span>=<span class="hljs-string">&quot;rect&quot;</span> <span class="hljs-attr">coords</span>=<span class="hljs-string">&quot;36,0,66,31&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;gifts.html&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Gifts&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">area</span> <span class="hljs-attr">shape</span>=<span class="hljs-string">&quot;rect&quot;</span> <span class="hljs-attr">coords</span>=<span class="hljs-string">&quot;71,0,101,31&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;cart.html&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Cart&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">area</span> <span class="hljs-attr">shape</span>=<span class="hljs-string">&quot;rect&quot;</span> <span class="hljs-attr">coords</span>=<span class="hljs-string">&quot;106,0,136,31&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;settings.html&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Settings&quot;</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">area</span> <span class="hljs-attr">shape</span>=<span class="hljs-string">&quot;rect&quot;</span> <span class="hljs-attr">coords</span>=<span class="hljs-string">&quot;141,0,171,31&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;help.html&quot;</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Help&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">map</span>&gt;</span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">usemap</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#map1<span class="token punctuation">"</span></span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>0</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>/images/imagemap.gif<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>map</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>map1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>area</span> <span class="token attr-name">shape</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rect<span class="token punctuation">"</span></span> <span class="token attr-name">coords</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0,0,31,31<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>home.html<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Home<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>area</span> <span class="token attr-name">shape</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rect<span class="token punctuation">"</span></span> <span class="token attr-name">coords</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>36,0,66,31<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>gifts.html<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Gifts<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>area</span> <span class="token attr-name">shape</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rect<span class="token punctuation">"</span></span> <span class="token attr-name">coords</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>71,0,101,31<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>cart.html<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Cart<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>area</span> <span class="token attr-name">shape</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rect<span class="token punctuation">"</span></span> <span class="token attr-name">coords</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>106,0,136,31<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>settings.html<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Settings<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>area</span> <span class="token attr-name">shape</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rect<span class="token punctuation">"</span></span> <span class="token attr-name">coords</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>141,0,171,31<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>help.html<span class="token punctuation">"</span></span> <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Help<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>map</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
 
 <h3 id="2-CSS-Sprite"><a href="#2-CSS-Sprite" class="headerlink" title="2. CSS Sprite"></a>2. CSS Sprite</h3><p>The concept of CSS Sprite is to put all individual images into one big image and select part of it where you want it to be displayed as the background image of a html element (that supports background images like a <code>&lt;span&gt;</code> or <code>&lt;div&gt;</code>).</p>
 <p>To “select” which image to show from the big image file, use the CSS <code>background-position</code> property</p>
-<div class="hljs"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;background-image: url(&#x27;css_sprites.gif&#x27;);</span></span>
-<span class="hljs-tag"><span class="hljs-string">            background-position: -260px -90px;</span></span>
-<span class="hljs-tag"><span class="hljs-string">            width: 26px; height: 24px;&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">background-image</span><span class="token punctuation">:</span> <span class="token url"><span class="token function">url</span><span class="token punctuation">(</span><span class="token string url">'css_sprites.gif'</span><span class="token punctuation">)</span></span><span class="token punctuation">;</span></span>
+<span class="token attr-value">            <span class="token property">background-position</span><span class="token punctuation">:</span> -260px -90px<span class="token punctuation">;</span></span>
+<span class="token attr-value">            <span class="token property">width</span><span class="token punctuation">:</span> 26px<span class="token punctuation">;</span> <span class="token property">height</span><span class="token punctuation">:</span> 24px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
 <p>The 2 values, “-260px” and “-90px”, defines the top-left position of the sprite-image. In this case, to display the target small image, it requires the sprite-image to move left by 260px and up by 90px. And that’s why you never see positive values for <code>background-position</code>.</p>
 <h3 id="3-Combined-Scripts-and-Stylesheets"><a href="#3-Combined-Scripts-and-Stylesheets" class="headerlink" title="3. Combined Scripts and Stylesheets"></a>3. Combined Scripts and Stylesheets</h3><p>Generally, using external scripts and stylesheets is better for performance. From software engineering’s point of view, it’s good to modularize the code by breaking it into many small files, which means more HTTP requests.</p>
 <p>Combining files is easy, and minifying the files can also be done along with the combining process. However it will be difficult if different pages require different combinations of modules. (Maybe take a look at RequireJS)</p>
@@ -297,6 +315,32 @@
               
             </div>
 
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'http://example.com/2015/07/24/web-performance-fewer-request/';
+        this.page.identifier = '/blog/2015/07/24/web-performance-fewer-request/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + '' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
             
           </article>
         </div>
@@ -396,6 +440,8 @@
 
 
   
+    
+  
 
 
 
@@ -413,6 +459,9 @@
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
 
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
