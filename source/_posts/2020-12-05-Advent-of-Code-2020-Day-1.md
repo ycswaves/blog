@@ -50,4 +50,9 @@ defmodule Report do
     end)
   end
   ```
-Full solution can be found [here](https://github.com/ycswaves/aoc-2020/blob/main/lib/day1/report_repair.ex)
+### Key takeaway
+- A list can be converted into a map using `Map.new/2` and return a two-element tuple ({key, val}) in the callback function
+- Use `cond do ...` instead of `if-elseif-else`
+- `String.split` may return empty strings, add `trim: true` (default is `false`) to avoid that
+
+Full solution can be found [here](https://github.com/ycswaves/aoc-2020/blob/main/lib/day1)
