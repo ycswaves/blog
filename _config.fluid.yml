@@ -47,7 +47,7 @@ code:
     # 实现高亮的库，对应下面的设置
     # Highlight library
     # Options: highlightjs | prismjs
-    lib: "highlightjs"
+    lib: "prismjs"
 
     highlightjs:
       # 在链接中挑选 style 填入
@@ -63,7 +63,7 @@ code:
       # 在下方链接页面右侧的圆形按钮挑选 style 填入，也可以直接填入 css 链接
       # Select the style button on the right side of the link page, you can also set the CSS link
       # See: https://prismjs.com/
-      style: "default"
+      style: "tomorrow"
 
       # 设为 true 高亮将本地静态生成（并只支持部分 prismjs 插件），设为 false 高亮将在浏览器通过 js 生成
       # If true, it will be generated locally (but some prismjs plugins are not supported). If false, it will be generated via JS in the browser
@@ -470,8 +470,9 @@ page:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
-  banner_img_height: 70
+  # banner_img: /img/default.png
+  banner_img: https://picsum.photos/1280/480
+  banner_img_height: 35
   banner_mask_alpha: 0.3
 
   # 文章标题下方的元信息
@@ -511,7 +512,7 @@ post:
     # 浏览量计数
     # Number of visits
     views:
-      enable: false
+      enable: true
       # 统计数据来源
       # Data Source
       # Options: busuanzi | leancloud
@@ -599,7 +600,7 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # Options: disqus | valine | gitalk | utterances | changyan | livere | remark42 | twikoo
     type: disqus
 
@@ -707,8 +708,8 @@ twikoo:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
-  banner_img_height: 60
+  banner_img: https://picsum.photos/1280/480
+  banner_img_height: 35
   banner_mask_alpha: 0.3
   subtitle:
 
@@ -719,8 +720,10 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
-  banner_img_height: 60
+  # banner_img: /img/default.png
+  # banner_img_height: 60
+  banner_img: https://picsum.photos/1280/480
+  banner_img_height: 35
   banner_mask_alpha: 0.3
   subtitle:
 
@@ -744,8 +747,10 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
-  banner_img_height: 80
+  # banner_img: /img/default.png
+  # banner_img_height: 80
+  banner_img: https://picsum.photos/1280/480
+  banner_img_height: 35
   banner_mask_alpha: 0.3
   subtitle:
   tagcloud:
@@ -762,8 +767,10 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/default.png
-  banner_img_height: 60
+  # banner_img: /img/default.png
+  # banner_img_height: 60
+  banner_img: https://picsum.photos/1280/480
+  banner_img_height: 35
   banner_mask_alpha: 0.3
   subtitle:  # 打字机内容
   avatar: /img/avatar.png
