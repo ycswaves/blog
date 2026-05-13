@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Shadcn Registry: Reusable Components and Config Without Template Pain - ycswaves&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 35vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>ycswaves's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://picsum.photos/1280/480') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Shadcn Registry: Reusable Components and Config Without Template Pain">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2026-02-26 10:00" pubdate>
+        February 26, 2026 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Shadcn Registry: Reusable Components and Config Without Template Pain</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-The-problem-component-libraries-and-project-templates-are-hard-to-maintain"><a href="#1-The-problem-component-libraries-and-project-templates-are-hard-to-maintain" class="headerlink" title="1. The problem: component libraries and project templates are hard to maintain"></a>1. The problem: component libraries and project templates are hard to maintain</h2><p>Software teams often build their own component library or project template for good reasons: design consistency across products, reuse instead of rebuilding the same patterns, and faster project setup with shared tooling and conventions. A custom component library keeps buttons, forms, and layouts consistent; a custom project template gives every new app the same lint rules, CI, and folder structure from day one. The intent is sound—centralize what’s shared so teams can move faster and stay aligned.</p>
+<p>The trouble is that maintaining these shared assets is hard. The pain shows up in two main ways.</p>
+<p><strong>Component library as an npm package.</strong> On a frontend team I worked on, we used to maintain our own component library as an npm package. To make a new component available, we had to make the UI code changes, publish to npm, and then upgrade the package version in every project that would use the new component. Sometimes we only found problems when we started using the new component in the actual project—and then we had to fix and go through the entire process again. One might argue that a monorepo could alleviate this (shared packages without the publish-and-upgrade cycle). The projects we built, however, had to stay isolated from one another (we operated as a venture studio—ownership, governance, and eventual spin-out all benefit from that separation). A monorepo is not a good fit for that model.</p>
+<p><strong>Project template (golden repo).</strong> We also found that managing our own project template was no easier. A “golden” repo—one big copy that every new project starts from—gets outdated quickly and is less flexible than we’d like. The frontend ecosystem moves fast: new frameworks and libraries show up all the time, so a template or tech stack that worked well a year ago—or even a few months ago—can feel outdated today. And once you’ve copied the template, existing projects don’t get updates unless you manually backport changes. The template is tightly coupled to a fixed stack: a specific React version, bundler, folder structure, and tooling. Over time, projects drift. You end up with many slightly different copies and no single source of truth.</p>
+<p>We also want to reuse more than just UI: GitHub Actions workflows, ESLint or Biome configs, and agent skills (e.g. for a CLI or tool). A single monolithic template forces all of that into one rigid package. What we need is a way to pull in <em>only</em> what we need, in small pieces, without locking the whole project to one stack.</p>
+<h2 id="2-Shadcn-registry-piece-by-piece-and-decoupled"><a href="#2-Shadcn-registry-piece-by-piece-and-decoupled" class="headerlink" title="2. Shadcn registry: piece-by-piece and decoupled"></a>2. Shadcn registry: piece-by-piece and decoupled</h2><img src="/blog/2026/02/26/shadcn-registry-reusable-components-meta-config/template-vs-reg.png" srcset="/blog/img/loading.gif" class="" title="Template vs registry: copy everything at once vs add only what you need">
+
+<p>The <a target="_blank" rel="noopener" href="https://ui.shadcn.com/docs/registry">shadcn registry</a> takes a different approach. Instead of one template, you have a <strong>catalog of items</strong>—each a component or an arbitrary set of files—installable one at a time:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">npx shadcn <span class="token function">add</span> <span class="token operator">&lt;</span>url<span class="token operator">></span>/r/<span class="token operator">&lt;</span>item<span class="token operator">></span>.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+<p>There is no single “template.” You add only what you need: one workflow, one ESLint config, one component. That keeps things less coupled to your tech stack. The schema is documented (<a target="_blank" rel="noopener" href="https://ui.shadcn.com/docs/registry/registry-json">registry.json</a>, <a target="_blank" rel="noopener" href="https://ui.shadcn.com/docs/registry/registry-item-json">registry-item.json</a>), so you can build your own registry that follows the same format.</p>
+<p>It’s not just copy-paste. When you install a component from the registry, the CLI figures out which other components it depends on (and their indirect dependencies), installs all of them, and adds the required npm packages to your <code>package.json</code>. You get the right files and the right dependencies in one go—no manual wiring.</p>
+<p><strong>Same mechanism for UI and non-UI.</strong> The important part: the <em>same</em> registry format and CLI support both <strong><code>registry:component</code></strong> (UI components) and <strong><code>registry:file</code></strong> (workflows, ESLint, agent skills, config files). One pattern for many kinds of reuse—not just for components. So you can serve a React button, a GitHub Actions workflow, and an agent skill from the same registry, all via <code>npx shadcn add</code>.</p>
+<p><strong>Ecosystem, not lock-in.</strong> The shadcn CLI works with any registry URL. You can use the default shadcn registry for UI and your own registry for workflows, configs, and skills. Mix and match. That keeps you less coupled to any one vendor or repo.</p>
+<h2 id="3-You-own-the-source-unlike-npm"><a href="#3-You-own-the-source-unlike-npm" class="headerlink" title="3. You own the source (unlike npm)"></a>3. You own the source (unlike npm)</h2><p>With npm, you get a packaged dependency. To customize it, you often fork the package or wrap it—and then you own the fork. There is another pain with npm-based libraries: there are great open-source component libraries (Material UI, Mantine, and so on), but in practice you rarely use more than one in the same app. Each library brings its own design system, styling approach, and theming—mixing two full libraries usually means clashing styles, a bigger bundle, and an inconsistent UI. Yet you often want the best of each: one library’s data grid, another’s form components. With a registry like shadcn, you copy only the components you need into your repo. You own them from day one, so you can mix and match from multiple sources and keep one consistent look. You can edit them directly, and the registry is the single place you (or your team) go to add or update those files. No black box, no fighting with node_modules. That makes customization and long-term maintenance straightforward.</p>
+<h2 id="4-AI-makes-maintaining-your-own-registry-feasible"><a href="#4-AI-makes-maintaining-your-own-registry-feasible" class="headerlink" title="4. AI makes maintaining your own registry feasible"></a>4. AI makes maintaining your own registry feasible</h2><p>Maintaining a registry is not trivial either: copying files, wiring the JSON, writing docs, and running the build. That’s why we leaned on AI to make the task easier—for example, an <strong>agent skill</strong> that encodes those steps. When you say “add this as a registry item,” the AI does the mechanical work from that short instruction.</p>
+<p>In practice, we ran an internal registry that served GitHub Actions workflows, ESLint/Biome configs, agent skills (e.g. for a CLI or tool), and UI components. Items were installed via <code>npx shadcn add &lt;registry-url&gt;/r/&lt;item&gt;.json</code>. An “add registry item” agent skill guided the AI to: copy source files into the registry’s file tree, register the item in the root <code>registry.json</code>, run the registry build, and add a doc page. The doc page was part of a small documentation site built with Astro Starlight. That site did double duty: it hosted the docs (each item gets a page with its install command and description, so teammates can discover and use it) and served the registry itself—the JSON that the CLI fetches when you run <code>npx shadcn add</code>. So a human could say “add these files as a registry component” and the model would follow the checklist. That lowered the bar, so team members were more likely to maintain the registry and actually use it.</p>
+<hr>
+<p>If you’ve been struggling with template drift or want to reuse workflows and configs without npm’s lock-in, the registry pattern is worth a look. Same format, same CLI—for components and for everything else.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/shadcn/">shadcn</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/registry/">registry</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/frontend/">frontend</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/ai/">ai</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Building a Claude Code Desktop Notifier with Claude Code</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/12/06/Advent-of-Code-2020-Day-2/">
+                        <span class="hidden-mobile">Advent of Code 2020 - Day 2</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'http://example.com/2026/02/26/shadcn-registry-reusable-components-meta-config/';
+        this.page.identifier = '/blog/2026/02/26/shadcn-registry-reusable-components-meta-config/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'ycswaves-1' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

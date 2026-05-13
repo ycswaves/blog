@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>Building a Claude Code Desktop Notifier with Claude Code - ycswaves&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 35vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>ycswaves's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://picsum.photos/1280/480') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Building a Claude Code Desktop Notifier with Claude Code">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2026-03-23 09:36" pubdate>
+        March 23, 2026 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Building a Claude Code Desktop Notifier with Claude Code</h1>
+            
+            <div class="markdown-body">
+              <h2 id="My-setup-tmux-multiple-Claude-agents"><a href="#My-setup-tmux-multiple-Claude-agents" class="headerlink" title="My setup: tmux + multiple Claude agents"></a>My setup: tmux + multiple Claude agents</h2><p>I live in the terminal. My daily setup is tmux + vim — multiple panes, multiple sessions. Claude Code fits naturally into this workflow because I can spin up several Claude agents in separate tmux panes, each working on a different task or a different branch. One agent is refactoring a module, another is writing tests, a third is investigating a bug. They all work concurrently and I switch between panes to check on progress.</p>
+<p>This is where things get interesting — and where the problem starts.</p>
+<h2 id="The-problem-silent-agents-waiting-for-attention"><a href="#The-problem-silent-agents-waiting-for-attention" class="headerlink" title="The problem: silent agents waiting for attention"></a>The problem: silent agents waiting for attention</h2><p>Claude Code agents don’t always run to completion on their own. Sometimes an agent hits a permission prompt — it wants to run a command, edit a file, or access a tool that requires approval. Other times it asks a clarification question and waits for your response. In both cases, the agent just sits there, doing nothing, until you interact with it.</p>
+<p>With a single agent, this is fine. You’re watching the output. But with multiple agents running in separate tmux panes, you don’t know an agent is blocked until you manually switch to that pane and look. By that point, it might have been sitting idle for minutes. Multiply that across several agents and you’re wasting a lot of time.</p>
+<p>I needed a way to get notified when any agent needs my attention.</p>
+<h2 id="Iteration-1-“Can-I-get-notified-”"><a href="#Iteration-1-“Can-I-get-notified-”" class="headerlink" title="Iteration 1: “Can I get notified?”"></a>Iteration 1: “Can I get notified?”</h2><p>I described the problem to Claude and asked for a solution. Claude introduced me to <strong>hooks</strong> — a feature in Claude Code’s <code>settings.json</code> that lets you run shell commands in response to specific events. There are matchers for events like <code>permission_prompt</code> (agent needs approval) and a <code>Stop</code> hook (agent finished its task).</p>
+<p>Claude wired up an <code>osascript</code> one-liner to send a native macOS notification:</p>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"Notification"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"matcher"</span><span class="token operator">:</span> <span class="token string">"permission_prompt"</span><span class="token punctuation">,</span>
+        <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"command"</span><span class="token punctuation">,</span>
+            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"osascript -e 'display notification \"Needs your permission\" with title \"Claude Code\" sound name \"Ping\"'"</span><span class="token punctuation">,</span>
+            <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">5</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"Stop"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"command"</span><span class="token punctuation">,</span>
+            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"osascript -e 'display notification \"Task finished\" with title \"Claude Code\" sound name \"Glass\"'"</span><span class="token punctuation">,</span>
+            <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">5</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>It worked. I got a macOS notification banner with a sound every time an agent needed permission or finished a task.</p>
+<img src="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/Iter1.png" srcset="/blog/img/loading.gif" class="" title="Basic notification with no context">
+
+<p>But with multiple agents running, the notification just said “Needs your permission” — I had no idea <em>which</em> project or task needed me.</p>
+<h2 id="Iteration-2-“Which-task-needs-me-”"><a href="#Iteration-2-“Which-task-needs-me-”" class="headerlink" title="Iteration 2: “Which task needs me?”"></a>Iteration 2: “Which task needs me?”</h2><p>I told Claude the problem: with multiple agents, a generic notification isn’t enough. I need to know which project and branch needs attention so I can switch to the right tmux pane.</p>
+<p>Claude updated the approach — instead of an inline <code>osascript</code> one-liner, it moved the logic to a shell script that reads the hook’s stdin JSON. Claude Code passes context to hooks via stdin, including the working directory. The script extracts the project name and git branch:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">PROJECT_DIR</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/bin/python3 -c <span class="token punctuation">\</span>
+  "import sys,json<span class="token punctuation">;</span> print<span class="token punctuation">(</span>json.load<span class="token punctuation">(</span>sys.stdin<span class="token punctuation">)</span>.get<span class="token punctuation">(</span><span class="token string">'cwd'</span>,<span class="token string">''</span><span class="token punctuation">)</span><span class="token variable">)</span></span>" <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token punctuation">)</span>
+<span class="token assign-left variable">PROJECT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> <span class="token string">"<span class="token variable">$PROJECT_DIR</span>"</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">BRANCH</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">git</span> -C <span class="token string">"<span class="token variable">$PROJECT_DIR</span>"</span> rev-parse --abbrev-ref HEAD <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">||</span> <span class="token builtin class-name">echo</span> <span class="token string">""</span><span class="token variable">)</span></span>
+
+<span class="token assign-left variable">SUBTITLE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;PROJECT&#125;</span>"</span>
+<span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$BRANCH</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">SUBTITLE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;PROJECT&#125;</span> · <span class="token variable">$&#123;BRANCH&#125;</span>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>Now the notification showed something like <strong>zenn-dev · chenshu/cc-notifier</strong> in the subtitle. Much better — I could immediately tell which agent needed me and switch to the correct pane.</p>
+<img src="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/Iter2.png" srcset="/blog/img/loading.gif" class="" title="Notification with project and branch context">
+
+<h2 id="Iteration-3-“Take-me-back-to-the-terminal”"><a href="#Iteration-3-“Take-me-back-to-the-terminal”" class="headerlink" title="Iteration 3: “Take me back to the terminal”"></a>Iteration 3: “Take me back to the terminal”</h2><p>The next annoyance: clicking the macOS notification toast opened Script Editor instead of my terminal — because <code>osascript</code> owns the notification.</p>
+<img src="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/scriptEditor.png" srcset="/blog/img/loading.gif" class="" title="Clicking the notification opens Script Editor instead of the terminal">
+
+<p>I wanted clicking the notification to bring my terminal app to the foreground, so I could see the agent that needed attention right away.</p>
+<p>I asked Claude to fix this. Claude researched the problem and suggested <a target="_blank" rel="noopener" href="https://github.com/julienXX/terminal-notifier"><code>terminal-notifier</code></a>, a CLI tool that supports click-to-activate behavior via macOS bundle IDs. Unlike <code>osascript</code> notifications, <code>terminal-notifier</code> can bring a specific app to the foreground when you click the notification:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">terminal-notifier <span class="token punctuation">\</span>
+  -title <span class="token string">"Claude Code"</span> <span class="token punctuation">\</span>
+  -subtitle <span class="token string">"<span class="token variable">$SUBTITLE</span>"</span> <span class="token punctuation">\</span>
+  -message <span class="token string">"<span class="token variable">$MESSAGE</span>"</span> <span class="token punctuation">\</span>
+  -sound <span class="token string">"<span class="token variable">$SOUND</span>"</span> <span class="token punctuation">\</span>
+  -activate <span class="token string">"<span class="token variable">$BUNDLE_ID</span>"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>Install it with <code>brew install terminal-notifier</code>, map your terminal app to its bundle ID (e.g., <code>com.mitchellh.ghostty</code> for Ghostty, <code>com.googlecode.iterm2</code> for iTerm2), and clicking the notification takes you straight back to your terminal.</p>
+<img src="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/iter3.png" srcset="/blog/img/loading.gif" class="" title="terminal-notifier notification with click-to-activate">
+
+<h2 id="Iteration-4-“It-broke-—-I’m-in-tmux”"><a href="#Iteration-4-“It-broke-—-I’m-in-tmux”" class="headerlink" title="Iteration 4: “It broke — I’m in tmux”"></a>Iteration 4: “It broke — I’m in tmux”</h2><p>After switching to <code>terminal-notifier</code>, something didn’t work right. The click-to-activate wasn’t activating the correct app.</p>
+<p>Claude figured out the issue: inside tmux, the <code>$TERM_PROGRAM</code> environment variable reports <code>tmux</code> instead of the actual terminal app (e.g., Ghostty, iTerm2). So the bundle ID lookup was failing.</p>
+<p>Claude added tmux detection logic — first checking <code>$TERM_PROGRAM_OUTER</code> (which some terminals set), and if that’s not available, walking the process tree from the tmux client PID up to find the real terminal:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;TERM_PROGRAM&#125;</span>"</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token environment constant">$TERM</span>"</span> <span class="token operator">=</span> <span class="token string">"tmux"</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TERM_PROGRAM_OUTER</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$TERM_PROGRAM_OUTER</span>"</span>
+  <span class="token keyword">else</span>
+    <span class="token assign-left variable">TMUX_CLIENT_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -p <span class="token string">'#&#123;client_pid&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX_CLIENT_PID</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+      <span class="token assign-left variable">PARENT_PID</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$TMUX_CLIENT_PID</span>"</span>
+      <span class="token keyword">while</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -gt <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token punctuation">;</span> <span class="token keyword">do</span>
+        <span class="token assign-left variable">PARENT_NAME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">ps</span> -p <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -o <span class="token assign-left variable">comm</span><span class="token operator">=</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">basename</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+        <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$PARENT_NAME</span>"</span> <span class="token keyword">in</span>
+          ghostty<span class="token operator">|</span>iTerm2<span class="token operator">|</span>Terminal<span class="token operator">|</span>WezTerm<span class="token operator">|</span>alacritty<span class="token operator">|</span>kitty<span class="token punctuation">)</span>
+            <span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$PARENT_NAME</span>"</span>
+            <span class="token builtin class-name">break</span>
+            <span class="token punctuation">;</span><span class="token punctuation">;</span>
+        <span class="token keyword">esac</span>
+        <span class="token assign-left variable">PARENT_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">ps</span> -p <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -o <span class="token assign-left variable">ppid</span><span class="token operator">=</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">|</span> <span class="token function">tr</span> -d <span class="token string">' '</span><span class="token variable">)</span></span>
+      <span class="token keyword">done</span>
+    <span class="token keyword">fi</span>
+  <span class="token keyword">fi</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>This walks up the process tree until it finds a known terminal app. Problem solved.</p>
+<h2 id="Iteration-5-“Take-me-to-the-exact-pane”"><a href="#Iteration-5-“Take-me-to-the-exact-pane”" class="headerlink" title="Iteration 5: “Take me to the exact pane”"></a>Iteration 5: “Take me to the exact pane”</h2><p>The <code>-activate</code> flag brought the terminal to the foreground, but with multiple tmux panes open I still had to visually scan for the right one. Not ideal when you have six panes across three windows.</p>
+<p>I asked Claude to make the notification click take me directly to the pane where the agent was waiting. Claude replaced <code>-activate</code> with <code>-execute</code>, which runs an arbitrary command when you click the notification. The command activates the terminal app via AppleScript and then uses <code>tmux select-window</code> + <code>tmux select-pane</code> to jump to the exact pane:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token assign-left variable">TMUX_SOCKET</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token operator">|</span> <span class="token function">cut</span> -d, -f1<span class="token variable">)</span></span>
+  <span class="token assign-left variable">TMUX_BIN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">which</span> tmux<span class="token variable">)</span></span>
+  <span class="token assign-left variable">TMUX_SESSION</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -t <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> -p <span class="token string">'#&#123;session_name&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+  <span class="token assign-left variable">TMUX_WINDOW</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -t <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> -p <span class="token string">'#&#123;window_index&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+  <span class="token comment"># Map bundle ID to app name for AppleScript activation</span>
+  <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$BUNDLE_ID</span>"</span> <span class="token keyword">in</span>
+    com.mitchellh.ghostty<span class="token punctuation">)</span>    <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"Ghostty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    com.googlecode.iterm2<span class="token punctuation">)</span>    <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"iTerm"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token comment"># ... other terminals</span>
+  <span class="token keyword">esac</span>
+  <span class="token assign-left variable">ACTIVATE_CMD</span><span class="token operator">=</span><span class="token string">""</span>
+  <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$APP_NAME</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">ACTIVATE_CMD</span><span class="token operator">=</span><span class="token string">"osascript -e 'tell application <span class="token entity" title="\&quot;">\"</span><span class="token variable">$&#123;APP_NAME&#125;</span><span class="token entity" title="\&quot;">\"</span> to activate' &amp;&amp; "</span>
+  terminal-notifier <span class="token punctuation">\</span>
+    -title <span class="token string">"Claude Code"</span> <span class="token punctuation">\</span>
+    -subtitle <span class="token string">"<span class="token variable">$SUBTITLE</span>"</span> <span class="token punctuation">\</span>
+    -message <span class="token string">"<span class="token variable">$MESSAGE</span>"</span> <span class="token punctuation">\</span>
+    -sound <span class="token string">"<span class="token variable">$SOUND</span>"</span> <span class="token punctuation">\</span>
+    -execute <span class="token string">"<span class="token variable">$&#123;ACTIVATE_CMD&#125;</span><span class="token variable">$&#123;TMUX_BIN&#125;</span> -S '<span class="token variable">$&#123;TMUX_SOCKET&#125;</span>' select-window -t '<span class="token variable">$&#123;TMUX_SESSION&#125;</span>:<span class="token variable">$&#123;TMUX_WINDOW&#125;</span>' &amp;&amp; <span class="token variable">$&#123;TMUX_BIN&#125;</span> -S '<span class="token variable">$&#123;TMUX_SOCKET&#125;</span>' select-pane -t '<span class="token variable">$&#123;TMUX_PANE&#125;</span>'"</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>The key insight: the script captures <code>$TMUX</code> and <code>$TMUX_PANE</code> at the time the hook fires — these environment variables identify exactly which tmux session, window, and pane the agent lives in. By embedding them into the <code>-execute</code> command, the click always targets the correct pane, even if you’ve switched to a different window or session in the meantime.</p>
+<p>For non-tmux setups, the script falls back to the simpler <code>-activate</code> behavior from Iteration 4.</p>
+<h2 id="The-final-result"><a href="#The-final-result" class="headerlink" title="The final result"></a>The final result</h2><p>Here’s the complete setup — the hooks configuration in <code>settings.json</code> and the full <code>notify.sh</code> script.</p>
+<p><strong><code>~/.claude/settings.json</code></strong> (hooks section):</p>
+<div class="code-wrapper"><pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"Notification"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"matcher"</span><span class="token operator">:</span> <span class="token string">"permission_prompt"</span><span class="token punctuation">,</span>
+        <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"command"</span><span class="token punctuation">,</span>
+            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"bash ~/.claude/notify.sh 'Needs your permission' 'Ping'"</span><span class="token punctuation">,</span>
+            <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">5</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"Stop"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">&#123;</span>
+        <span class="token property">"hooks"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+          <span class="token punctuation">&#123;</span>
+            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"command"</span><span class="token punctuation">,</span>
+            <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"bash ~/.claude/notify.sh 'Task finished' 'Glass'"</span><span class="token punctuation">,</span>
+            <span class="token property">"timeout"</span><span class="token operator">:</span> <span class="token number">5</span>
+          <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<details>
+<summary><code>~/.claude/notify.sh</code></summary>
+
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token comment"># Usage: notify.sh &lt;message> &lt;sound></span>
+<span class="token comment"># Reads hook JSON from stdin to extract project name</span>
+<span class="token comment"># Clicking the notification brings the terminal app to the foreground</span>
+
+<span class="token assign-left variable">MESSAGE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;1<span class="token operator">:-</span>Notification&#125;</span>"</span>
+<span class="token assign-left variable">SOUND</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;2<span class="token operator">:-</span>default&#125;</span>"</span>
+
+<span class="token assign-left variable">PROJECT_DIR</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>/usr/bin/python3 -c "import sys,json<span class="token punctuation">;</span> print<span class="token punctuation">(</span>json.load<span class="token punctuation">(</span>sys.stdin<span class="token punctuation">)</span>.get<span class="token punctuation">(</span><span class="token string">'cwd'</span>,<span class="token string">''</span><span class="token punctuation">)</span><span class="token variable">)</span></span>" <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token punctuation">)</span>
+<span class="token assign-left variable">PROJECT</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> <span class="token string">"<span class="token variable">$PROJECT_DIR</span>"</span><span class="token variable">)</span></span>
+<span class="token assign-left variable">BRANCH</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">git</span> -C <span class="token string">"<span class="token variable">$PROJECT_DIR</span>"</span> rev-parse --abbrev-ref HEAD <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">||</span> <span class="token builtin class-name">echo</span> <span class="token string">""</span><span class="token variable">)</span></span>
+
+<span class="token assign-left variable">SUBTITLE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;PROJECT&#125;</span>"</span>
+<span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$BRANCH</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">SUBTITLE</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;PROJECT&#125;</span> · <span class="token variable">$&#123;BRANCH&#125;</span>"</span>
+
+<span class="token comment"># Resolve the actual terminal app (TERM_PROGRAM may be "tmux")</span>
+<span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$&#123;TERM_PROGRAM&#125;</span>"</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token environment constant">$TERM</span>"</span> <span class="token operator">=</span> <span class="token string">"tmux"</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># Use TERM_PROGRAM_OUTER if available, otherwise detect the parent terminal</span>
+  <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TERM_PROGRAM_OUTER</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$TERM_PROGRAM_OUTER</span>"</span>
+  <span class="token keyword">else</span>
+    <span class="token comment"># tmux server is detached — detect terminal from the tmux client process</span>
+    <span class="token assign-left variable">TMUX_CLIENT_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -p <span class="token string">'#&#123;client_pid&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+    <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX_CLIENT_PID</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+      <span class="token assign-left variable">PARENT_PID</span><span class="token operator">=</span><span class="token string">"<span class="token variable">$TMUX_CLIENT_PID</span>"</span>
+      <span class="token keyword">while</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -gt <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token punctuation">;</span> <span class="token keyword">do</span>
+        <span class="token assign-left variable">PARENT_NAME</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">ps</span> -p <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -o <span class="token assign-left variable">comm</span><span class="token operator">=</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">|</span> <span class="token function">xargs</span> <span class="token function">basename</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+        <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$PARENT_NAME</span>"</span> <span class="token keyword">in</span>
+          ghostty<span class="token operator">|</span>iTerm2<span class="token operator">|</span>Terminal<span class="token operator">|</span>WezTerm<span class="token operator">|</span>alacritty<span class="token operator">|</span>kitty<span class="token punctuation">)</span>
+            <span class="token assign-left variable"><span class="token environment constant">TERM</span></span><span class="token operator">=</span><span class="token string">"<span class="token variable">$PARENT_NAME</span>"</span>
+            <span class="token builtin class-name">break</span>
+            <span class="token punctuation">;</span><span class="token punctuation">;</span>
+        <span class="token keyword">esac</span>
+        <span class="token assign-left variable">PARENT_PID</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">ps</span> -p <span class="token string">"<span class="token variable">$PARENT_PID</span>"</span> -o <span class="token assign-left variable">ppid</span><span class="token operator">=</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null <span class="token operator">|</span> <span class="token function">tr</span> -d <span class="token string">' '</span><span class="token variable">)</span></span>
+      <span class="token keyword">done</span>
+    <span class="token keyword">fi</span>
+  <span class="token keyword">fi</span>
+<span class="token keyword">fi</span>
+
+<span class="token comment"># Map terminal name to bundle ID for click-to-activate</span>
+<span class="token keyword">case</span> <span class="token string">"<span class="token environment constant">$TERM</span>"</span> <span class="token keyword">in</span>
+  ghostty<span class="token punctuation">)</span>          <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"com.mitchellh.ghostty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  iTerm.app<span class="token operator">|</span>iTerm2<span class="token punctuation">)</span> <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"com.googlecode.iterm2"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  Apple_Terminal<span class="token operator">|</span>Terminal<span class="token punctuation">)</span> <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"com.apple.Terminal"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  WezTerm<span class="token punctuation">)</span>          <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"com.github.wez.wezterm"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  alacritty<span class="token punctuation">)</span>        <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"org.alacritty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  kitty<span class="token punctuation">)</span>            <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">"net.kovidgoyal.kitty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+  *<span class="token punctuation">)</span>                <span class="token assign-left variable">BUNDLE_ID</span><span class="token operator">=</span><span class="token string">""</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span>
+
+<span class="token keyword">if</span> <span class="token builtin class-name">command</span> -v terminal-notifier <span class="token operator">&amp;></span>/dev/null <span class="token operator">&amp;&amp;</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$BUNDLE_ID</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+  <span class="token comment"># If inside tmux, use -execute to switch to the exact window/pane on click</span>
+  <span class="token keyword">if</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+    <span class="token assign-left variable">TMUX_SOCKET</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$TMUX</span>"</span> <span class="token operator">|</span> <span class="token function">cut</span> -d, -f1<span class="token variable">)</span></span>
+    <span class="token assign-left variable">TMUX_BIN</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">which</span> tmux<span class="token variable">)</span></span>
+    <span class="token assign-left variable">TMUX_SESSION</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -t <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> -p <span class="token string">'#&#123;session_name&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+    <span class="token assign-left variable">TMUX_WINDOW</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>tmux display-message -t <span class="token string">"<span class="token variable">$TMUX_PANE</span>"</span> -p <span class="token string">'#&#123;window_index&#125;'</span> <span class="token operator"><span class="token file-descriptor important">2</span>></span>/dev/null<span class="token variable">)</span></span>
+    <span class="token comment"># Map bundle ID to app name for AppleScript activation</span>
+    <span class="token keyword">case</span> <span class="token string">"<span class="token variable">$BUNDLE_ID</span>"</span> <span class="token keyword">in</span>
+      com.mitchellh.ghostty<span class="token punctuation">)</span>    <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"Ghostty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      com.googlecode.iterm2<span class="token punctuation">)</span>    <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"iTerm"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      com.apple.Terminal<span class="token punctuation">)</span>       <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"Terminal"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      com.github.wez.wezterm<span class="token punctuation">)</span>   <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"WezTerm"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      org.alacritty<span class="token punctuation">)</span>            <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"Alacritty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      net.kovidgoyal.kitty<span class="token punctuation">)</span>     <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">"kitty"</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+      *<span class="token punctuation">)</span>                        <span class="token assign-left variable">APP_NAME</span><span class="token operator">=</span><span class="token string">""</span> <span class="token punctuation">;</span><span class="token punctuation">;</span>
+    <span class="token keyword">esac</span>
+    <span class="token assign-left variable">ACTIVATE_CMD</span><span class="token operator">=</span><span class="token string">""</span>
+    <span class="token punctuation">[</span> -n <span class="token string">"<span class="token variable">$APP_NAME</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> <span class="token assign-left variable">ACTIVATE_CMD</span><span class="token operator">=</span><span class="token string">"osascript -e 'tell application <span class="token entity" title="\&quot;">\"</span><span class="token variable">$&#123;APP_NAME&#125;</span><span class="token entity" title="\&quot;">\"</span> to activate' &amp;&amp; "</span>
+    terminal-notifier <span class="token punctuation">\</span>
+      -title <span class="token string">"Claude Code"</span> <span class="token punctuation">\</span>
+      -subtitle <span class="token string">"<span class="token variable">$SUBTITLE</span>"</span> <span class="token punctuation">\</span>
+      -message <span class="token string">"<span class="token variable">$MESSAGE</span>"</span> <span class="token punctuation">\</span>
+      -sound <span class="token string">"<span class="token variable">$SOUND</span>"</span> <span class="token punctuation">\</span>
+      -execute <span class="token string">"<span class="token variable">$&#123;ACTIVATE_CMD&#125;</span><span class="token variable">$&#123;TMUX_BIN&#125;</span> -S '<span class="token variable">$&#123;TMUX_SOCKET&#125;</span>' select-window -t '<span class="token variable">$&#123;TMUX_SESSION&#125;</span>:<span class="token variable">$&#123;TMUX_WINDOW&#125;</span>' &amp;&amp; <span class="token variable">$&#123;TMUX_BIN&#125;</span> -S '<span class="token variable">$&#123;TMUX_SOCKET&#125;</span>' select-pane -t '<span class="token variable">$&#123;TMUX_PANE&#125;</span>'"</span>
+  <span class="token keyword">else</span>
+    terminal-notifier <span class="token punctuation">\</span>
+      -title <span class="token string">"Claude Code"</span> <span class="token punctuation">\</span>
+      -subtitle <span class="token string">"<span class="token variable">$SUBTITLE</span>"</span> <span class="token punctuation">\</span>
+      -message <span class="token string">"<span class="token variable">$MESSAGE</span>"</span> <span class="token punctuation">\</span>
+      -sound <span class="token string">"<span class="token variable">$SOUND</span>"</span> <span class="token punctuation">\</span>
+      -activate <span class="token string">"<span class="token variable">$BUNDLE_ID</span>"</span>
+  <span class="token keyword">fi</span>
+<span class="token keyword">else</span>
+  <span class="token comment"># Fallback to osascript if terminal-notifier is not installed</span>
+  osascript -e <span class="token string">"display notification <span class="token entity" title="\&quot;">\"</span><span class="token variable">$MESSAGE</span><span class="token entity" title="\&quot;">\"</span> with title <span class="token entity" title="\&quot;">\"</span>Claude Code<span class="token entity" title="\&quot;">\"</span> subtitle <span class="token entity" title="\&quot;">\"</span><span class="token variable">$SUBTITLE</span><span class="token entity" title="\&quot;">\"</span> sound name <span class="token entity" title="\&quot;">\"</span><span class="token variable">$SOUND</span><span class="token entity" title="\&quot;">\"</span>"</span>
+<span class="token keyword">fi</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</details>
+
+<p>How it fits together: Claude Code fires a hook event → the hook runs <code>notify.sh</code> with a message and sound → the script reads the project directory from stdin JSON, resolves the git branch, detects the real terminal app (even inside tmux), and sends a notification via <code>terminal-notifier</code>. Click the notification and it brings your terminal to the foreground and switches to the exact tmux pane where the agent is waiting.</p>
+<h2 id="How-to-set-it-up-yourself"><a href="#How-to-set-it-up-yourself" class="headerlink" title="How to set it up yourself"></a>How to set it up yourself</h2><ol>
+<li><p><strong>Install terminal-notifier:</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">brew <span class="token function">install</span> terminal-notifier<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+</li>
+<li><p><strong>Create the notification script:</strong></p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># Paste the notify.sh script above into this file</span>
+<span class="token function">vim</span> ~/.claude/notify.sh
+<span class="token function">chmod</span> +x ~/.claude/notify.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p><strong>Add hooks to your settings:</strong><br>Add the hooks section from above to <code>~/.claude/settings.json</code>. If you already have other settings in the file, merge the <code>hooks</code> key into your existing config.</p>
+</li>
+<li><p><strong>Customize sounds (optional):</strong><br>The script uses <code>Ping</code> for permission prompts and <code>Glass</code> for task completion. You can pick any sound from <code>/System/Library/Sounds/</code>:</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span> /System/Library/Sounds/
+<span class="token comment"># Basso, Blow, Bottle, Frog, Funk, Glass, Hero, Morse, Ping, Pop, Purr, Sosumi, Submarine, Tink</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<p>Preview a sound before choosing: <code>afplay /System/Library/Sounds/Glass.aiff</code></p>
+</li>
+</ol>
+<p>That’s it. Next time a Claude Code agent needs your attention, you’ll hear it and see which project it’s about.</p>
+<h2 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h2><p>Throughout this entire process — five iterations from a basic notification to a tmux-aware, pane-switching system — I didn’t write a single line of code or do any manual research. Each iteration followed the same pattern:</p>
+<ol>
+<li>Describe the problem or annoyance</li>
+<li>Claude proposes a solution</li>
+<li>Test it</li>
+<li>Give feedback on what didn’t work</li>
+<li>Claude refines</li>
+</ol>
+<p>I didn’t look up how hooks work. I didn’t read the <code>terminal-notifier</code> README. I didn’t figure out how to detect the terminal app inside tmux. I just described what I wanted and what went wrong, and Claude handled the implementation and the research.</p>
+<p>This is what working with an AI coding agent feels like when it works well — you stay focused on the <em>what</em> and the <em>why</em>, and the agent handles the <em>how</em>.</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/ai/">ai</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/claude-code/">claude-code</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/cli/">cli</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/macos/">macos</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2026/02/26/shadcn-registry-reusable-components-meta-config/">
+                        <span class="hidden-mobile">Shadcn Registry: Reusable Components and Config Without Template Pain</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'http://example.com/2026/03/23/claude-code-desktop-notifier-without-writing-code/';
+        this.page.identifier = '/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'ycswaves-1' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
