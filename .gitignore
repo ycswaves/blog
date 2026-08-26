@@ -45,3 +45,7 @@ Thumbs.db
 
 # sensative files    #
 ######################
+
+# Hexo deploy staging repo #
+############################
+.deploy_git/

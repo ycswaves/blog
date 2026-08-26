@@ -110,5 +110,5 @@ theme: fluid
 #   type: ''
 deploy:
   type: git
-  repo: https://github.com/ycswaves/blog
+  repo: git@github.com-ycswaves:ycswaves/blog.git
   branch: gh-pages
