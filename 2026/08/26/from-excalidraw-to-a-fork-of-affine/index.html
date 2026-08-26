@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>From Excalidraw to a Fork of AFFiNE: Shipping a Whiteboard on a Startup Budget - ycswaves&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.staticfile.org/prism/1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 35vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>ycswaves's blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('https://picsum.photos/1280/480') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="From Excalidraw to a Fork of AFFiNE: Shipping a Whiteboard on a Startup Budget">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2026-08-26 10:00" pubdate>
+        August 26, 2026 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      32
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">From Excalidraw to a Fork of AFFiNE: Shipping a Whiteboard on a Startup Budget</h1>
+            
+            <div class="markdown-body">
+              <h2 id="1-The-feature-nobody-warns-you-about"><a href="#1-The-feature-nobody-warns-you-about" class="headerlink" title="1. The feature nobody warns you about"></a>1. The feature nobody warns you about</h2><p>The product I work on is an e-learning platform. Course creators lay out material on visual boards, learners work on those boards and submit their work, and reviewers leave feedback directly on the canvas. On the roadmap this looked like one feature among many: “add a collaborative canvas.”</p>
+<p>It is not one feature. A canvas is a product-within-a-product. It has its own rendering engine, its own data model, its own real-time sync problem, its own undo stack, its own zoom/pan/selection interaction model that users compare—consciously or not—against the best tool they’ve ever used. And for most users today, that reference point is FigJam.</p>
+<p>This post is the story of how we got there: from Excalidraw, through a failed bet on an editor library, to running our own fork of AFFiNE. The interesting part isn’t the specific tools—it’s how one hard constraint made the decision for us.</p>
+<h2 id="2-v0-the-options-on-the-table"><a href="#2-v0-the-options-on-the-table" class="headerlink" title="2. v0: the options on the table"></a>2. v0: the options on the table</h2><p>When we first scoped the canvas, two options made the shortlist.</p>
+<p><strong>Build it ourselves on Konva.</strong> A canvas rendering library like Konva gives you full control: your data model, your interactions, your look. It also gives you full responsibility for everything I listed above. For a small startup team with a product to ship, “we’ll build our own FigJam” is a multi-quarter commitment disguised as a library choice. We passed.</p>
+<p><strong>Excalidraw.</strong> Batteries included: drawing tools, shapes, images, export, a well-maintained open-source project with a permissive license. We could embed it, wire up persistence, and ship. So we did, and for a while it did its job.</p>
+<h2 id="3-The-rejection"><a href="#3-The-rejection" class="headerlink" title="3. The rejection"></a>3. The rejection</h2><p>The feedback that eventually killed it wasn’t about bugs or missing tools. It was about how it <em>looked</em>.</p>
+<p>Excalidraw’s signature hand-drawn aesthetic—wobbly lines, sketchy fills—is a deliberate design choice, and a good one for its intended use: it signals “this is a rough whiteboard, don’t overthink it.” But our creators weren’t sketching. They were building course material that learners would study and that reflects on the creator’s professionalism. On that content, the hand-drawn style read as unpolished. Almost toy-like.</p>
+<p>What users kept asking for was, in their words, “something like FigJam”: clean lines, precise shapes, a professional finish. Not FigJam’s feature set—FigJam’s <em>feel</em>.</p>
+<p>That’s worth pausing on, because it’s the transferable lesson of this chapter: users don’t evaluate an embedded canvas against your product, they evaluate it against the canvas tools they already know. If your audience lives in FigJam, an intentionally sketchy whiteboard will feel wrong no matter how well it works.</p>
+<h2 id="4-The-bake-off-and-the-constraint-that-actually-decided-it"><a href="#4-The-bake-off-and-the-constraint-that-actually-decided-it" class="headerlink" title="4. The bake-off, and the constraint that actually decided it"></a>4. The bake-off, and the constraint that actually decided it</h2><p>So we surveyed the field for a clean, FigJam-like canvas.</p>
+<p><strong>tldraw</strong> was the best technical fit, full stop. Clean visuals, excellent interaction model, designed to be embedded. If the decision had been purely technical, this post would be about tldraw. But tldraw’s business license comes with a fee that a startup-stage company couldn’t justify for one feature.</p>
+<p><strong>Miro and FigJam embeds</strong> had the same problem in a different shape: per-seat SaaS pricing that scales with our user count, plus no real control over the experience inside the frame.</p>
+<p>Notice what happened here: the decision tree wasn’t pruned by a feature comparison. It was pruned by a single hard constraint—<strong>licensing cost</strong>. Every technically-excellent option fell to the same axe. That’s the pattern I’d point other teams at: figure out your hard constraint <em>first</em>, because it eliminates candidates faster than any bake-off spreadsheet, and it saves you from falling in love with an option you can’t afford.</p>
+<p>What survived was <strong>AFFiNE</strong>: an open-source knowledge base with an “edgeless” canvas mode that is visually and interactionally the closest thing to FigJam we found—and free to self-host.</p>
+<h2 id="5-The-detour-building-on-BlockSuite"><a href="#5-The-detour-building-on-BlockSuite" class="headerlink" title="5. The detour: building on BlockSuite"></a>5. The detour: building on BlockSuite</h2><p>Our first instinct was <em>not</em> to take the whole AFFiNE app. AFFiNE’s editor is built on BlockSuite, its underlying editor framework, and the tidy-looking plan was: take the library, build our own canvas component on top, keep full control of the shell. Best of both worlds—AFFiNE’s editor quality, our own integration surface.</p>
+<p>We ran a spike, and the spike killed the plan within days. Two findings:</p>
+<ol>
+<li><strong>Customization was much harder than the architecture diagram suggested.</strong> BlockSuite is built to power AFFiNE; bending it to a different host app meant fighting assumptions baked in at every layer.</li>
+<li><strong>The standalone repo had gone quiet.</strong> Development had moved into the AFFiNE monorepo, and the library we’d be betting our canvas on hadn’t seen meaningful standalone updates in a long time. We had been burned by this smell before, and building a core feature on an effectively unmaintained foundation was not a bet we were willing to make.</li>
+</ol>
+<p>The spike cost us a few days. Committing to the library and discovering all this six months in would have cost us the roadmap. If there’s a second transferable lesson in this story, it’s this: when your plan is “we’ll build on their internal library,” spike it before you schedule it.</p>
+<h2 id="6-The-actual-decision-fork-the-app-not-the-library"><a href="#6-The-actual-decision-fork-the-app-not-the-library" class="headerlink" title="6. The actual decision: fork the app, not the library"></a>6. The actual decision: fork the app, not the library</h2><p>So we inverted the approach. Instead of extracting AFFiNE’s editor into our app, we would run AFFiNE itself—self-hosted, as its own service—and embed it.</p>
+<p>That meant maintaining a fork, and the scope of the fork was the most important decision of the whole project. We kept it deliberately minimal: <strong>embed hardening only</strong>. Our patches strip the UI that makes no sense inside an embedded canvas—app navigation, workspace chrome, anything that would remind the user they’re inside “another product.” We do not touch the editor internals. The canvas engine, the data model, the sync layer—all of it stays upstream’s code.</p>
+<p>I’d summarize the principle as: <strong>fork the shell, not the guts.</strong> Every line you change in a fork is a line you re-pay on every upstream merge. Changes to the outer shell are small, localized, and cheap to carry forward. Changes to editor internals are exactly the opposite—and they’re also exactly what made the BlockSuite path fail.</p>
+<h2 id="7-Making-the-embed-feel-native"><a href="#7-Making-the-embed-feel-native" class="headerlink" title="7. Making the embed feel native"></a>7. Making the embed feel native</h2><p>An iframe to a self-hosted app solves rendering, but the naive version has an obvious seam: the user logs into your platform, opens a board, and the iframe greets them with <em>another</em> login screen. Fixing that seam is where the actual integration work lives.</p>
+<p>Our setup relies on the two apps being siblings on one domain:</p>
+<div class="code-wrapper"><pre class="line-numbers language-text" data-language="text"><code class="language-text">          app.example.com                 canvas.example.com
+       (e-learning platform)              (forked AFFiNE)
+                 │                               ▲
+1. user logs in  │                               │ 4. iframe loads doc;
+                 ▼                               │    cookie sent along,
+           platform API ──────────────────────►  │    no second login
+                 │       2. server-to-server:    │
+                 │          sync user, create    │
+                 │          canvas session       │
+                 ▼                               │
+3. session cookie set with Domain&#x3D;.example.com ──┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p>In words:</p>
+<ol>
+<li>The user logs into the platform as usual.</li>
+<li>During login, our backend talks server-to-server to the AFFiNE instance: it ensures a matching user exists there and obtains a session for them.</li>
+<li>The backend sets that canvas session as a cookie scoped to the <em>parent</em> domain (<code>.example.com</code>), so the browser will send it to any sibling subdomain.</li>
+<li>When the app renders a board, it embeds an iframe pointing at a specific workspace and document on <code>canvas.example.com</code>. The browser attaches the domain-wide cookie, AFFiNE recognizes the session, and the canvas just appears—no auth wall, no second identity.</li>
+</ol>
+<p>None of this is AFFiNE-specific. It’s a general pattern for embedding any self-hosted, session-based app into your product: put it on a sibling subdomain, sync users server-to-server at login, and share the session via a domain-scoped cookie. The user experiences one product; behind the scenes there are two.</p>
+<h2 id="8-What-this-actually-costs"><a href="#8-What-this-actually-costs" class="headerlink" title="8. What this actually costs"></a>8. What this actually costs</h2><p>A fork story that ends with “and it works great” is an advertisement, so here is the bill we knowingly pay:</p>
+<ul>
+<li><strong>Fork maintenance.</strong> Every upstream AFFiNE release has to be merged past our patches. The embed-hardening-only scope keeps this manageable, but it’s a recurring tax, not a one-time cost.</li>
+<li><strong>Operational burden.</strong> We now run an entire collaborative-editing stack—server, real-time sync, storage—to power what the roadmap once called “a canvas feature.” Self-hosted is free like a puppy is free.</li>
+<li><strong>The iframe is a sealed box.</strong> Deep integration—custom block types, product features reaching into the canvas, the canvas reaching out—ranges from awkward to impossible across the frame boundary. We traded integration depth for isolation.</li>
+</ul>
+<p>Here’s the thing, though: all three of these are <em>soft</em> costs. They’re ongoing taxes we can budget for, staff for, and revisit. A per-seat license fee at a price we couldn’t afford was a <em>hard</em> constraint—no amount of engineering effort makes it go away. Given the choice between problems we can work on and a problem we can’t, we’ll take the puppy.</p>
+<h2 id="9-Takeaways"><a href="#9-Takeaways" class="headerlink" title="9. Takeaways"></a>9. Takeaways</h2><ul>
+<li><strong>Find your hard constraint first.</strong> Ours was licensing cost, and it pruned the options faster than any feature matrix. Rank constraints by hardness before you rank candidates by quality.</li>
+<li><strong>Your canvas is judged against FigJam, not against your mockups.</strong> Aesthetic fit with your users’ reference tools is a real requirement, not polish.</li>
+<li><strong>Spike before you bet on a library</strong>—especially one extracted from a larger app. A few days of spiking on BlockSuite saved us months.</li>
+<li><strong>If you must fork, fork the shell, not the guts.</strong> Keep patches at the edges where upstream merges stay cheap.</li>
+<li><strong>Sibling subdomain + server-side user sync + domain-scoped session cookie</strong> is a reusable recipe for embedding a self-hosted app without a second login.</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/affine/">affine</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/excalidraw/">excalidraw</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/canvas/">canvas</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/architecture/">architecture</a>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/self-hosting/">self-hosting</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">All the content in this blog is licensed under <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0</a>, unless stated otherwise</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2026/03/23/claude-code-desktop-notifier-without-writing-code/">
+                        <span class="hidden-mobile">Building a Claude Code Desktop Notifier with Claude Code</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+      var disqus_config = function() {
+        this.page.url = 'http://example.com/2026/08/26/from-excalidraw-to-a-fork-of-affine/';
+        this.page.identifier = '/blog/2026/08/26/from-excalidraw-to-a-fork-of-affine/';
+      };
+      Fluid.utils.waitElementVisible('disqus_thread', function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//' + 'ycswaves-1' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date());
+        (d.head || d.body).appendChild(s);
+      });
+    </script>
+    <noscript>Please enable JavaScript to view the
+      <a target="_blank" href="https://disqus.com/?ref_noscript" rel="nofollow noopener noopener">comments powered by Disqus.</a>
+    </noscript>
+  </div>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.5.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.5.3/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.12.0/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
